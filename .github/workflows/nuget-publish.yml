@@ -7,7 +7,6 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    environment: StratusEnv
 
     steps:
       - name: Checkout

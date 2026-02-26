@@ -1,4 +1,3 @@
-using StratusSDK.Core.Constants;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -72,7 +71,7 @@ namespace StratusSDK
         /// Gets or sets the Zoho Catalyst project ID.
         /// </summary>
         /// <value>The project ID as a string.</value>
-        public required string ProjectID { get; init; }
+        public required string ProjectID { get; set; }
 
         public required string RedirectUrl { get; set; }
 
@@ -80,12 +79,12 @@ namespace StratusSDK
         /// Gets or sets the Zoho OAuth refresh token for authentication.
         /// </summary>
         /// <value>The refresh token string. This property is required.</value>
-        public required string RefreshToken { get; init; }
+        public required string RefreshToken { get; set; }
 
         /// <summary>
         /// Gets or sets the region where the Stratus bucket is hosted.
         /// </summary>
         /// <value>The region enum value.</value>
-        public required ERegion Region { get; init; }
+        public required ERegion Region { get; set; }
     }
 }

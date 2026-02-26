@@ -1,6 +1,6 @@
 namespace StratusSDK
 {
-    public abstract class QueryProviderBase : BaseHttpProvider, Core.Interfaces.IQueryProvider
+    public abstract class QueryProviderBase : BaseHttpProvider, IQueryProvider
     {
         private readonly Dictionary<string, string?> Queries = [];
         public virtual Dictionary<string, string?> ToQueries() => Queries;

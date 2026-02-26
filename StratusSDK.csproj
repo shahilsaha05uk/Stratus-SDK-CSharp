@@ -8,10 +8,48 @@
     <Title>Stratus .NET Package</Title>
     <Authors>Shahil Saha</Authors>
     <Company />
-    <Description>A .NET SDK for Zoho Catalyst Stratus cloud storage. Upload, download, copy, rename, and delete objects; manage buckets; generate presigned URLs; extract ZIP archives; and handle object versioning and metadata — all with async/await, OAuth 2.0 auth, and full DI support.</Description>
-    <PackageTags>zoho;catalyst;stratus;cloud-storage;object-storage;sdk;bucket;presigned-url</PackageTags>
-    <PackageReadmeFile>API-DOCUMENTATION.md</PackageReadmeFile>
+    <Description>StratusSDK
+
+A production-ready .NET SDK for integrating with Zoho Catalyst Stratus object storage.
+
+StratusSDK provides a strongly-typed, extensible, and developer-friendly abstraction over the Stratus REST API, designed with clean architecture principles and seamless ASP.NET Core integration.
+
+Features
+
+Strongly-typed request/response models
+
+Extensible operation-based architecture
+
+Dependency Injection ready
+
+Structured error handling with custom StratusException
+
+Built-in ProblemDetails integration for APIs
+
+Upload, download, metadata, and bucket management support
+
+Presigned URL generation support
+
+Async-first with full CancellationToken support
+
+HttpClient best practices (no socket exhaustion)
+
+Designed For
+
+ASP.NET Core applications
+
+Cloud-native services
+
+Background workers
+
+Clean architecture projects
+
+Developers who want compile-time safety over raw HTTP calls</Description>
+    <PackageTags>zoho;catalyst;stratus;cloud-storage;object-storage;sdk;</PackageTags>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/shahilsaha05uk/Stratus-SDK-CSharp</RepositoryUrl>
+    <PackageId>CSharp.StratusSDK</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
 
@@ -37,6 +75,10 @@
 
     <ItemGroup>
       <None Update="API-DOCUMENTATION.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
+      <None Update="Readme.md">
         <Pack>True</Pack>
         <PackagePath>\</PackagePath>
       </None>

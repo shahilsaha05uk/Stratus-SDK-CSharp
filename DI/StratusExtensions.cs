@@ -1,6 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using StratusSDK.Core.Interfaces;
 
 namespace StratusSDK
 {

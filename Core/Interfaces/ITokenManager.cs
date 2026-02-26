@@ -1,4 +1,4 @@
-﻿namespace StratusSDK.Core.Interfaces
+namespace StratusSDK
 {
     public interface ITokenManager
     {

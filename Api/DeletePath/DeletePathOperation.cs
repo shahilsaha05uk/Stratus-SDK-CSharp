@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Options;
-using StratusSDK.Core.Constants.Keys;
 
 namespace StratusSDK
 {

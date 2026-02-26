@@ -1,4 +1,3 @@
-using StratusSDK.Core.Interfaces;
 
 namespace StratusSDK
 {

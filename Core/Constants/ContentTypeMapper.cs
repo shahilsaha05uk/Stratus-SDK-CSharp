@@ -1,4 +1,4 @@
-namespace StratusSDK.Core.Constants
+namespace StratusSDK
 {
     public static class ContentTypeMapper
     {

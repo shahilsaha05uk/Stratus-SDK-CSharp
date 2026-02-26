@@ -1,6 +1,5 @@
-using StratusSDK.Core.Constants.Keys;
 
-namespace StratusSDK.Api.Bucket.ExistsBucket
+namespace StratusSDK
 {
     public sealed class ExistsBucketOperation(
         StratusClient client,

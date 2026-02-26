@@ -1,4 +1,4 @@
-namespace StratusSDK.Core.Constants.Keys
+namespace StratusSDK
 {
     internal static class TokenKeys
     {

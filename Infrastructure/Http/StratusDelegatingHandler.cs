@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Options;
-using StratusSDK.Core.Interfaces;
 using System.Net.Http.Headers;
 
 namespace StratusSDK

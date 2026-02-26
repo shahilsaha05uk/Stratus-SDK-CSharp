@@ -1,4 +1,3 @@
-using StratusSDK.Api.Bucket.ExistsBucket;
 
 namespace StratusSDK
 {

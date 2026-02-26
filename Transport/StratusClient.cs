@@ -1,6 +1,3 @@
-using StratusSDK.Core.Constants;
-using StratusSDK.Core.Constants.Keys;
-using StratusSDK.Core.Interfaces;
 using System.Net.Http.Headers;
 
 namespace StratusSDK

@@ -1,4 +1,4 @@
-namespace StratusSDK.Core.Constants
+namespace StratusSDK
 {
     internal static class BucketDomains
     {

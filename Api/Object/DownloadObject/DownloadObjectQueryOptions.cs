@@ -1,6 +1,4 @@
 
-using StratusSDK.Core.Constants;
-using StratusSDK.Core.Constants.Keys;
 
 namespace StratusSDK
 {

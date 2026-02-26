@@ -1,8 +1,6 @@
-using StratusSDK.Core.Constants;
-using StratusSDK.Core.Interfaces;
 using System.Net.Http.Headers;
 
-namespace StratusSDK.ContentTypes
+namespace StratusSDK
 {
     public sealed class FilePathContent : IStratusHttpContent
     {

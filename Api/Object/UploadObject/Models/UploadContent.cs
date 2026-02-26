@@ -1,5 +1,3 @@
-using StratusSDK.ContentTypes;
-using StratusSDK.Core.Interfaces;
 using System.Text;
 
 namespace StratusSDK

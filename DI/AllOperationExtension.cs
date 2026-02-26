@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using StratusSDK.Api.Bucket.ExistsBucket;
 
 namespace StratusSDK
 {

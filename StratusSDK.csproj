@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>StratusSDK</RootNamespace>
+    <Title>Stratus .NET Package</Title>
+    <Authors>Shahil Saha</Authors>
+    <Company />
+    <Description>A .NET SDK for Zoho Catalyst Stratus cloud storage. Upload, download, copy, rename, and delete objects; manage buckets; generate presigned URLs; extract ZIP archives; and handle object versioning and metadata — all with async/await, OAuth 2.0 auth, and full DI support.</Description>
+    <PackageTags>zoho;catalyst;stratus;cloud-storage;object-storage;sdk;bucket;presigned-url</PackageTags>
+    <PackageReadmeFile>API-DOCUMENTATION.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/shahilsaha05uk/Stratus-SDK-CSharp</RepositoryUrl>
+  </PropertyGroup>
+
+
+    <ItemGroup>
+	    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <EditorConfigFiles Remove="E:\bb\project\bb-api\StratusSDK\.editorconfig" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <None Include="E:\bb\project\bb-api\StratusSDK\.editorconfig" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <PackageReference Include="Corvus.UriTemplates" Version="2.3.2" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <None Update="API-DOCUMENTATION.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
+    </ItemGroup>
+</Project>

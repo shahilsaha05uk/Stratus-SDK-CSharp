@@ -1,0 +1,19 @@
+using StratusSDK.Core.Interfaces;
+
+namespace StratusSDK
+{
+    public abstract class QueryProviderBase<T> : BaseHttpProvider, IQueryProvider<T>
+    {
+        private readonly Dictionary<string, string?> Queries = [];
+        public virtual Dictionary<string, string?> ToQueries(T data) => Queries;
+
+        protected void AddRequired(string key, object? value, string? message = null)
+        {
+            AddRequired(Queries, key, value?.ToString(), message);
+        }
+        protected void AddOptional(string key, object? value)
+        {
+            base.AddOptional(Queries, key, value);
+        }
+    }
+}

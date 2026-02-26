@@ -59,12 +59,12 @@ Developers who want compile-time safety over raw HTTP calls</Description>
 
 
     <ItemGroup>
-      <EditorConfigFiles Remove="E:\bb\project\bb-api\StratusSDK\.editorconfig" />
+      <EditorConfigFiles Remove=".editorconfig" />
     </ItemGroup>
 
 
     <ItemGroup>
-      <None Include="E:\bb\project\bb-api\StratusSDK\.editorconfig" />
+      <None Include=".editorconfig" />
     </ItemGroup>
 
 

@@ -2,6 +2,11 @@ name: Publish Nuget Package
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Package version (e.g. 1.0.3). Required when triggered manually (no tag)."
+        required: false
+        default: ""
   push:
     tags:
       - "v*.*.*" # e.g. v1.0.2
@@ -16,7 +21,8 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: "10.0.x"
+          dotnet-quality: "preview"
 
       - name: Restore
         run: dotnet restore
@@ -24,20 +30,26 @@ jobs:
       - name: Build (Release)
         run: dotnet build -c Release --no-restore
 
-      - name: Pack (version from tag)
+      - name: Resolve version
+        id: version
         run: |
-          echo "GITHUB_REF=${GITHUB_REF}"
-          echo "GITHUB_REF_NAME=${GITHUB_REF_NAME}"
-
-          if [[ "${GITHUB_REF}" != refs/tags/v* ]]; then
-            echo "This workflow must be triggered by a tag like v1.0.3. Current ref: ${GITHUB_REF}"
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          elif [[ -n "${{ github.event.inputs.version }}" ]]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            echo "ERROR: No version available. Either push a tag like v1.0.3 or supply a version input."
             exit 1
           fi
+          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Resolved version: $VERSION"
 
-          VERSION="${GITHUB_REF_NAME#v}"
-          dotnet pack -c Release --no-build -p:PackageVersion="$VERSION" -o ./artifacts
+      - name: Pack
+        run: dotnet pack -c Release --no-build -p:PackageVersion="${{ steps.version.outputs.VERSION }}" -o ./artifacts
+
       - name: Publish to NuGet.org
         run: |
           dotnet nuget push "./artifacts/*.nupkg" \
             --api-key "${{ secrets.NUGET_API_KEY }}" \
-            --source "https://api.nuget.org/v3/index.json"
+            --source "https://api.nuget.org/v3/index.json" \
+            --skip-duplicate

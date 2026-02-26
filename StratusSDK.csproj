@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>StratusSDK</RootNamespace>
+	  <Version>1.0.1</Version>
     <Title>Stratus .NET Package</Title>
     <Authors>Shahil Saha</Authors>
     <Company />

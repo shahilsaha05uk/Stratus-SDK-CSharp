@@ -14,6 +14,7 @@ A comprehensive .NET SDK for interacting with Zoho Catalyst Stratus cloud storag
   - [Option 2: Manual Initialization (Console Apps)](#option-2-manual-initialization-for-console-apps--non-di-scenarios)
   - [Exception Handler (DI Only)](#exception-handler-di-only)
   - [Choosing Between Patterns](#choosing-between-patterns)
+- [Samples](#samples)
 - [Quick Start](#quick-start)
 - [Configuration](#configuration)
   - [Required Settings](#required-settings)
@@ -407,6 +408,15 @@ public class StorageController : ControllerBase
 **Recommendation:**
 - ✅ **Use DI Pattern** for web applications, APIs, and long-running services
 - ✅ **Use Manual Pattern** for console apps, scripts, and simple utilities
+
+## Samples
+
+For ready-to-use examples demonstrating every SDK operation, check out the [`Samples/`](Samples/) directory:
+
+- **[`StratusController.cs`](Samples/StratusController.cs)** — An ASP.NET Core controller showing how to use the SDK with **dependency injection**.
+- **[`StratusNonDISample.cs`](Samples/StratusNonDISample.cs)** — A static class showing how to use the SDK **without a DI container**, using `StratusSDKFactory.Create()`.
+
+Feel free to copy these files into your project as a starting point.
 
 ## Quick Start
 

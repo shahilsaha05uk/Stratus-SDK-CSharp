@@ -15,6 +15,8 @@
 //            options.BucketName   = "your-bucket-name";
 //            options.ProjectID    = "your-project-id";
 //            options.Region       = ERegion.US;
+//            // options.Environment defaults to Development; override if needed:
+//            // options.Environment = EStratusEnvironment.Production;
 //            options.ClientID     = "your-client-id";
 //            options.ClientSecret = "your-client-secret";
 //            options.RefreshToken = "your-refresh-token";

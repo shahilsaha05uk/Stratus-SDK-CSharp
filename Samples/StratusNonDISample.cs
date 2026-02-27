@@ -22,6 +22,8 @@ namespace StratusSDK.Samples
                 BucketName = "your-bucket-name",
                 ProjectID = "your-project-id",
                 Region = ERegion.US,
+                // Environment defaults to Development; override if needed:
+                // Environment = EStratusEnvironment.Production,
                 ClientID = "your-client-id",
                 ClientSecret = "your-client-secret",
                 RefreshToken = "your-refresh-token",

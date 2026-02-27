@@ -174,9 +174,11 @@ builder.Services.AddStratusExtensions(options =>
     options.BucketName = "your-bucket-name";
     options.ProjectID = "your-project-id";
     options.Region = ERegion.US;
+    options.Environment = EStratusEnvironment.Production; // Defaults to Development; override for production
     options.ClientID = builder.Configuration["Stratus:ClientID"];
     options.ClientSecret = builder.Configuration["Stratus:ClientSecret"];
     options.RefreshToken = builder.Configuration["Stratus:RefreshToken"];
+    options.RedirectUrl = builder.Configuration["Stratus:RedirectUrl"];
 });
 
 // Optional: Add Stratus Exception Handler for automatic error handling
@@ -237,7 +239,8 @@ public class FilesController : ControllerBase
     "Region": "US",
     "ClientID": "your-client-id",
     "ClientSecret": "your-client-secret",
-    "RefreshToken": "your-refresh-token"
+    "RefreshToken": "your-refresh-token",
+    "RedirectUrl": "your-redirect-url"
   }
 }
 ```
@@ -262,9 +265,12 @@ var options = new StratusOptions
     BucketName = "your-bucket-name",
     ProjectID = "your-project-id",
     Region = ERegion.US,
+    // Environment defaults to EStratusEnvironment.Development; override if needed:
+    // Environment = EStratusEnvironment.Production,
     ClientID = "your-client-id",
     ClientSecret = "your-client-secret",
-    RefreshToken = "your-refresh-token"
+    RefreshToken = "your-refresh-token",
+    RedirectUrl = "your-redirect-url"
 };
 
 var sdk = StratusSDKFactory.Create(options);
@@ -284,9 +290,12 @@ class Program
             BucketName = Environment.GetEnvironmentVariable("STRATUS_BUCKET"),
             ProjectID = Environment.GetEnvironmentVariable("STRATUS_PROJECT_ID"),
             Region = ERegion.US,
+            // Environment defaults to EStratusEnvironment.Development; override if needed:
+            // Environment = EStratusEnvironment.Production,
             ClientID = Environment.GetEnvironmentVariable("STRATUS_CLIENT_ID"),
             ClientSecret = Environment.GetEnvironmentVariable("STRATUS_CLIENT_SECRET"),
-            RefreshToken = Environment.GetEnvironmentVariable("STRATUS_REFRESH_TOKEN")
+            RefreshToken = Environment.GetEnvironmentVariable("STRATUS_REFRESH_TOKEN"),
+            RedirectUrl = Environment.GetEnvironmentVariable("STRATUS_REDIRECT_URL")
         };
 
         var sdk = StratusSDKFactory.Create(options);
@@ -434,9 +443,12 @@ var options = new StratusOptions
     BucketName = "your-bucket-name",
     ProjectID = "your-project-id",
     Region = ERegion.US,
+    // Environment defaults to EStratusEnvironment.Development; override if needed:
+    // Environment = EStratusEnvironment.Production,
     ClientID = "your-client-id",
     ClientSecret = "your-client-secret",
-    RefreshToken = "your-refresh-token"
+    RefreshToken = "your-refresh-token",
+    RedirectUrl = "your-redirect-url"
 };
 ```
 
@@ -475,9 +487,11 @@ var objects = await sdk.ListAllObjectsAsync(
 | `BucketName` | Your Stratus bucket name | `"my-storage-bucket"` |
 | `ProjectID` | Catalyst project identifier | `"1234567890"` |
 | `Region` | Data center region | `ERegion.US` |
+| `Environment` | Stratus environment (defaults to `Development`; can be overridden to `Production`) | `EStratusEnvironment.Production` |
 | `ClientID` | OAuth client ID | `"1000.XXXXX"` |
 | `ClientSecret` | OAuth client secret | `"xxxxxxxxxxxxx"` |
 | `RefreshToken` | OAuth refresh token | `"1000.xxxxx.xxxxx"` |
+| `RedirectUrl` | OAuth redirect URL | `"https://your-app.com/callback"` |
 
 ### Regions
 
@@ -506,9 +520,12 @@ var options = new StratusOptions
     BucketName = "documents",
     ProjectID = "1234567890",
     Region = ERegion.US,
+    // Environment defaults to Development; override if needed:
+    // Environment = EStratusEnvironment.Production,
     ClientID = "your-client-id",
     ClientSecret = "your-client-secret",
-    RefreshToken = "your-refresh-token"
+    RefreshToken = "your-refresh-token",
+    RedirectUrl = "your-redirect-url"
 };
 
 var sdk = StratusSDKFactory.Create(options);
@@ -903,7 +920,8 @@ Configuration class for initializing the Stratus SDK.
 | `ClientSecret` | `string` | Yes (required) | OAuth client secret | `"xxxxxxxxxxxxx"` |
 | `RefreshToken` | `string` | Yes (required) | OAuth refresh token | `"1000.xxxxx.xxxxx"` |
 | `OrgId` | `string?` | No | Organization ID (optional) | `"60012345678"` |
-| `Environment` | `EStratusEnvironment?` | No | Environment setting (optional) | `EStratusEnvironment.Production` |
+| `Environment` | `EStratusEnvironment?` | No | Stratus environment. Defaults to `Development`; can be overridden to `Production` | `EStratusEnvironment.Production` |
+| `RedirectUrl` | `string` | Yes (required) | OAuth redirect URL | `"https://your-app.com/callback"` |
 | `BaseUrl` | `string` | Read-only | Auto-generated API URL from Region | `"https://api.catalyst.zoho.com"` |
 
 **Example:**
@@ -913,9 +931,12 @@ var options = new StratusOptions
     BucketName = "documents",
     ProjectID = "1234567890",
     Region = ERegion.US,
+    // Environment defaults to Development; override if needed:
+    // Environment = EStratusEnvironment.Production,
     ClientID = "1000.ABCDEF",
     ClientSecret = "secret123",
-    RefreshToken = "1000.refresh.token"
+    RefreshToken = "1000.refresh.token",
+    RedirectUrl = "https://your-app.com/callback"
 };
 ```
 

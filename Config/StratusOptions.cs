@@ -24,9 +24,10 @@ namespace StratusSDK
         /// </summary>
         /// <value>The bucket name as a string.</value>
         public string BucketName { get; set; } = string.Empty;
-        public string DevBucketName => $"{BucketName}-development";
-        public string BucketUrl => $"https://{BucketName}.{BucketDomains.GetDomain(Region)}";
-        public string DevBucketUrl => $"https://{DevBucketName}.{BucketDomains.GetDomain(Region)}";
+        private string DevBucketName => $"{BucketName}-development";
+        private string BucketUrl => $"https://{BucketName}.{BucketDomains.GetDomain(Region)}";
+        private string DevBucketUrl => $"https://{DevBucketName}.{BucketDomains.GetDomain(Region)}";
+
 
         /// <summary>
         /// Gets or sets the Zoho OAuth client ID.
@@ -44,7 +45,14 @@ namespace StratusSDK
         /// Gets or sets the Stratus environment (optional).
         /// </summary>
         /// <value>The environment enum value or null.</value>
-        public EStratusEnvironment? Environment { get; set; }
+        public EStratusEnvironment? Environment { get; init; } = EStratusEnvironment.Development;
+
+        public string GetBucketUrl() => Environment switch
+        {
+            EStratusEnvironment.Production => BucketUrl,
+            EStratusEnvironment.Development => DevBucketUrl,
+            _ => throw new InvalidOperationException("Environment must be set to either Production or Development.")
+        };
 
         /// <summary>
         /// Gets or sets the JSON serializer options used for API requests and responses.

@@ -1,5 +1,7 @@
 # Stratus SDK for .NET
 
+Nuget Package Link: https://www.nuget.org/packages/CSharp.StratusSDK
+
 A comprehensive .NET SDK for interacting with Zoho Catalyst Stratus cloud storage. Provides easy-to-use APIs for managing buckets, uploading/downloading objects, and performing advanced storage operations.
 
 [![.NET](https://img.shields.io/badge/.NET-10.0-blue.svg)](https://dotnet.microsoft.com/)

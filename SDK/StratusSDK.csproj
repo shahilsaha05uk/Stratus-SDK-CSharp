@@ -64,6 +64,10 @@ Developers who want compile-time safety over raw HTTP calls</Description>
 
 
     <ItemGroup>
+      <None Include="..\Readme.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
       <None Include=".editorconfig" />
     </ItemGroup>
 

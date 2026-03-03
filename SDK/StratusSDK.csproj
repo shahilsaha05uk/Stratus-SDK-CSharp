@@ -64,25 +64,16 @@ Developers who want compile-time safety over raw HTTP calls</Description>
 
 
     <ItemGroup>
-      <None Include="..\Readme.md">
-        <Pack>True</Pack>
-        <PackagePath>\</PackagePath>
-      </None>
-      <None Include=".editorconfig" />
-    </ItemGroup>
-
-
-    <ItemGroup>
       <PackageReference Include="Corvus.UriTemplates" Version="2.3.2" />
     </ItemGroup>
 
 
     <ItemGroup>
-      <None Update="API-DOCUMENTATION.md">
+      <None Update="..\Readme.md">
         <Pack>True</Pack>
         <PackagePath>\</PackagePath>
       </None>
-      <None Update="Readme.md">
+      <None Update="..\Readme.md">
         <Pack>True</Pack>
         <PackagePath>\</PackagePath>
       </None>

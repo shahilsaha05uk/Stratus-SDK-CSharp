@@ -64,6 +64,11 @@ Developers who want compile-time safety over raw HTTP calls</Description>
 
 
     <ItemGroup>
+      <None Include="..\Readme.md" />
+    </ItemGroup>
+
+
+    <ItemGroup>
       <PackageReference Include="Corvus.UriTemplates" Version="2.3.2" />
     </ItemGroup>
 

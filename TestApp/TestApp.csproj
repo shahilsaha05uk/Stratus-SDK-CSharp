@@ -6,6 +6,7 @@
   </PropertyGroup>
 	<PropertyGroup>
 		<IsPackable>false</IsPackable>
+		<UserSecretsId>436db3f5-c83e-4ee5-ac30-d7f693921977</UserSecretsId>
 	</PropertyGroup>
 	
   <ItemGroup>

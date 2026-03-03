@@ -72,25 +72,10 @@ namespace StratusSDK
             string currentKey,
             string renameTo,
             CancellationToken ct = default);
-        public Task<UploadObjectResponse> UploadFileAsync(
+        public Task<UploadObjectResponse> UploadAsync(
             string objectKey,
-            string filePath,
+            IStratusHttpContent content,
             EContentType contentType = EContentType.TextPlain,
-            UploadObjectRequestOptions? options = null,
-            CancellationToken ct = default);
-        public Task<UploadObjectResponse> UploadStreamAsync(
-            string objectKey,
-            Stream contentStream,
-            UploadObjectRequestOptions? options = null,
-            CancellationToken ct = default);
-        public Task<UploadObjectResponse> UploadStringAsync(
-            string objectKey,
-            string content,
-            UploadObjectRequestOptions? options = null,
-            CancellationToken ct = default);
-        public Task<UploadObjectResponse> UploadBytesAsync(
-            string objectKey,
-            byte[] contentBytes,
             UploadObjectRequestOptions? options = null,
             CancellationToken ct = default);
     }

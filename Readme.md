@@ -22,74 +22,72 @@ A comprehensive .NET SDK for interacting with Zoho Catalyst Stratus cloud storag
   - [Required Settings](#required-settings)
   - [Regions](#regions)
 - [Usage Examples](#usage-examples)
-  - [Upload with Metadata](#upload-with-metadata)
-  - [Download Specific Version](#download-specific-version)
+  - [Check Object Existence](#check-object-existence)
   - [Copy Objects](#copy-objects)
   - [Delete Objects](#delete-objects)
-  - [List Objects with Pagination](#list-objects-with-pagination)
-  - [Generate Presigned URLs](#generate-presigned-urls)
-  - [Check Object Existence](#check-object-existence)
+  - [Download Specific Version](#download-specific-version)
   - [Extract ZIP Files](#extract-zip-files)
+  - [Generate Presigned URLs](#generate-presigned-urls)
+  - [List Objects with Pagination](#list-objects-with-pagination)
   - [Rename Objects](#rename-objects)
+  - [Upload](#upload)
 - [Data Models Reference](#data-models-reference)
   - [Configuration](#configuration-1)
     - [StratusOptions](#stratusoptions)
   - [Request Models](#request-models)
     - [DeleteObjectRequestData](#deleteobjectrequestdata)
-    - [DownloadObjectRequest](#downloadobjectrequest)
     - [DownloadHeaderOptions](#downloadheaderoptions)
+    - [DownloadObjectRequest](#downloadobjectrequest)
     - [PresignedUrlOptions](#presignedurloptions)
-    - [UploadObjectRequestOptions](#uploadobjectrequest-options)
-    - [UploadHeaderOptions](#uploadheaderoptions)
     - [PutObjectMetadataRequestBody](#putobjectmetadatarequestbody)
+    - [UploadContent](#uploadcontent)
+    - [UploadHeaderOptions](#uploadheaderoptions)
+    - [UploadObjectRequestOptions](#uploadobjectrequest-options)
   - [Response Models](#response-models-1)
     - [Bucket](#bucket)
     - [BucketObject](#bucketobject)
-    - [DownloadObjectResponse](#downloadobjectresponse)
-    - [GetAllObjectsResponse](#getallobjectsresponse)
-    - [GetAllObjectResponseData](#getallobjectresponsedata)
-    - [PresignedURLResponse](#presignedurlresponse)
-    - [PresignedUrlData](#presignedurldata)
-    - [GetStatusOfZipExtractResponse](#getstatusofzipextractresponse)
-    - [GetStatusOfZipExtractData](#getstatusofzipextractdata)
-    - [CreateBucketSignatureResponse](#createbucketsignatureresponse)
     - [CreateBucketSignatureData](#createbucketsignaturedata)
+    - [CreateBucketSignatureResponse](#createbucketsignatureresponse)
+    - [DownloadObjectResponse](#downloadobjectresponse)
+    - [GetAllObjectResponseData](#getallobjectresponsedata)
+    - [GetAllObjectsResponse](#getallobjectsresponse)
+    - [GetStatusOfZipExtractData](#getstatusofzipextractdata)
+    - [GetStatusOfZipExtractResponse](#getstatusofzipextractresponse)
+    - [PresignedUrlData](#presignedurldata)
+    - [PresignedURLResponse](#presignedurlresponse)
   - [Enumerations](#enumerations)
-    - [ERegion](#eregion)
+    - [ECachingStatus](#ecachingstatus)
     - [EContentType](#econtenttype)
     - [EPresignedType](#epresignedtype)
+    - [ERegion](#eregion)
     - [EStratusKeyType](#estratuskeytype)
-    - [ECachingStatus](#ecachingstatus)
     - [EZipExtractStatus](#ezipextractstatus)
   - [Interfaces](#interfaces)
     - [IStratusSDK](#istratussdk)
 - [API Reference](#api-reference)
   - [Object Operations](#object-operations)
-    - [UploadFileAsync](#uploadfileasync)
-    - [UploadStreamAsync](#uploadstreamasync)
-    - [UploadStringAsync](#uploadstringasync)
-    - [UploadBytesAsync](#uploadbytesasync)
-    - [DownloadObjectAsync](#downloadobjectasync)
     - [CopyObjectAsync](#copyobjectasync)
-    - [RenameObjectAsync](#renameobjectasync)
     - [DeleteObjectAsync](#deleteobjectasync)
     - [DeleteObjectsAsync](#deleteobjectsasync)
     - [DeletePathAsync](#deletepathasync)
+    - [DownloadObjectAsync](#downloadobjectasync)
     - [ExistsObjectAsync](#existsobjectasync)
+    - [RenameObjectAsync](#renameobjectasync)
+    - [UploadAsync](#uploadasync)
   - [Metadata & Information](#metadata--information)
     - [GetObjectAsync](#getobjectasync)
     - [GetObjectVersionsAsync](#getobjectversionsasync)
     - [ListAllObjectsAsync](#listallobjectsasync)
     - [PutObjectMetadataAsync](#putobjectmetadataasync)
   - [Bucket Operations](#bucket-operations)
+    - [CreateBucketSignatureAsync](#createbucketsignatureasync)
+    - [ExistsBucketAsync](#existsbucketasync)
     - [GetBucketAsync](#getbucketasync)
     - [ListAllBucketsAsync](#listallbucketsasync)
-    - [ExistsBucketAsync](#existsbucketasync)
-    - [CreateBucketSignatureAsync](#createbucketsignatureasync)
   - [Advanced Operations](#advanced-operations)
-    - [GetPresignedURLAsync](#getpresignedurlasync)
     - [ExtractZipObjectAsync](#extractzipobjectasync)
     - [GetExtractionStatusAsync](#getextractionstatusasync)
+    - [GetPresignedURLAsync](#getpresignedurlasync)
 - [Error Handling](#error-handling)
   - [StratusException](#stratusexception)
   - [StratusAuthenticationException](#stratusauthenticationexception)
@@ -222,9 +220,9 @@ public class FilesController : ControllerBase
         using var stream = file.OpenReadStream();
 
         // Exceptions are automatically handled by StratusExceptionHandler
-        await _sdk.UploadStreamAsync(
+        await _sdk.UploadAsync(
             $"uploads/{file.FileName}",
-            stream);
+            UploadContent.FromStream(stream));
 
         return Ok(new { message = "File uploaded successfully" });
     }
@@ -305,9 +303,9 @@ class Program
         try
         {
             // Upload
-            await sdk.UploadStringAsync(
+            await sdk.UploadAsync(
                 "test/file.txt",
-                "Hello, Stratus!");
+                UploadContent.FromString("Hello, Stratus!"));
             Console.WriteLine("Upload successful!");
 
             // Download
@@ -422,12 +420,12 @@ public class StorageController : ControllerBase
 
 ## Samples
 
-For ready-to-use examples demonstrating every SDK operation, check out the [`Samples/`](Samples/) directory:
+Ready-to-use examples are available in two places:
 
-- **[`StratusController.cs`](Samples/StratusController.cs)** — An ASP.NET Core controller showing how to use the SDK with **dependency injection**.
-- **[`StratusNonDISample.cs`](Samples/StratusNonDISample.cs)** — A static class showing how to use the SDK **without a DI container**, using `StratusSDKFactory.Create()`.
+- **[`Samples/StratusNonDISample.cs`](Samples/StratusNonDISample.cs)** — A static class showing how to use the SDK **without a DI container**, using `StratusSDKFactory.Create()`.
+- **[`TestApp/`](https://github.com/shahilsaha05uk/Stratus-SDK-CSharp/tree/main/TestApp)** — A companion ASP.NET Core project with a full **dependency injection** controller (`StratusController.cs`) wired up with Scalar/OpenAPI for interactive testing.
 
-Feel free to copy these files into your project as a starting point.
+Feel free to copy these into your own project as a starting point.
 
 ## Quick Start
 
@@ -464,10 +462,10 @@ var sdk = StratusSDKFactory.Create(options);
 
 ```csharp
 // Upload a file from disk
-await sdk.UploadFileAsync(
+await sdk.UploadAsync(
     "documents/report.pdf",
-    "report.pdf",
-    contentType: EContentType.ApplicationPdf);
+    UploadContent.FromFile("report.pdf"),
+    EContentType.ApplicationPdf);
 
 // Download a file
 var response = await sdk.DownloadObjectAsync(new DownloadObjectRequest
@@ -510,102 +508,32 @@ Available regions via `ERegion` enum:
 
 All examples below are shown in two patterns: **Manual** (for console apps) and **Dependency Injection** (for ASP.NET Core).
 
-### Upload with Metadata
+### Check Object Existence
 
 **Manual (Console App):**
 
 ```csharp
-using StratusSDK;
+var result = await sdk.ExistsObjectAsync("documents/report.pdf");
 
-var options = new StratusOptions
+if (result.Success)
 {
-    BucketName = "documents",
-    ProjectID = "1234567890",
-    Region = ERegion.US,
-    // Environment defaults to Development; override if needed:
-    // Environment = EStratusEnvironment.Production,
-    ClientID = "your-client-id",
-    ClientSecret = "your-client-secret",
-    RefreshToken = "your-refresh-token",
-    RedirectUrl = "your-redirect-url"
-};
-
-var sdk = StratusSDKFactory.Create(options);
-
-await sdk.UploadFileAsync(
-    "documents/report.pdf",
-    "report.pdf",
-    contentType: EContentType.ApplicationPdf);
-```
-
-**Dependency Injection (ASP.NET Core):**
-
-```csharp
-using StratusSDK;
-using Microsoft.AspNetCore.Mvc;
-
-[ApiController]
-[Route("api/[controller]")]
-public class DocumentsController : ControllerBase
+    Console.WriteLine("File exists!");
+}
+else
 {
-    private readonly IStratusSDK _sdk;
-
-    public DocumentsController(IStratusSDK sdk)
-    {
-        _sdk = sdk;
-    }
-
-    [HttpPost("upload")]
-    public async Task<IActionResult> UploadDocument(IFormFile file)
-    {
-        using var stream = file.OpenReadStream();
-
-        await _sdk.UploadStreamAsync(
-            $"documents/{file.FileName}",
-            stream);
-
-        return Ok(new { message = "Document uploaded successfully" });
-    }
+    Console.WriteLine("File not found.");
 }
 ```
 
-### Download Specific Version
-
-**Manual (Console App):**
-
-```csharp
-var request = new DownloadObjectRequest
-{
-    ObjectKey = "documents/report.pdf",
-    VersionId = "01hh9hkfdf07y8pnpbwtkt8cf7"
-};
-
-var response = await sdk.DownloadObjectAsync(request);
-byte[] fileContent = response.Content;
-
-// Save to file
-await File.WriteAllBytesAsync("downloaded-report.pdf", fileContent);
-```
-
 **Dependency Injection (ASP.NET Core):**
 
 ```csharp
-[HttpGet("download/{*objectKey}")]
-public async Task<IActionResult> Download(string objectKey, [FromQuery] string? versionId = null)
+[HttpHead("{*objectKey}")]
+public async Task<IActionResult> CheckExists(string objectKey)
 {
-    var request = new DownloadObjectRequest
-    {
-        ObjectKey = objectKey,
-        VersionId = versionId
-    };
+    var result = await _sdk.ExistsObjectAsync(objectKey);
 
-    var response = await _sdk.DownloadObjectAsync(request);
-
-    return File(
-        response.Content, 
-        response.ContentType ?? "application/octet-stream",
-        Path.GetFileName(objectKey)
-    );
+    return result.Success ? Ok() : NotFound();
 }
 ```
 
@@ -682,129 +610,43 @@ public async Task<IActionResult> DeleteMultiple([FromBody] List<string> objectKe
 }
 ```
 
-### List Objects with Pagination
+### Download Specific Version
 
 **Manual (Console App):**
 
 ```csharp
-string? continuationToken = null;
-int totalObjects = 0;
-
-do
+var request = new DownloadObjectRequest
 {
-    var response = await sdk.ListAllObjectsAsync(
-        MaxKeys: 100,
-        ContinuationToken: continuationToken,
-        Prefix: "documents/");
+    ObjectKey = "documents/report.pdf",
+    VersionId = "01hh9hkfdf07y8pnpbwtkt8cf7"
+};
 
-    foreach (var obj in response.Data)
-    {
-        Console.WriteLine($"{obj.ObjectKey} - {obj.Size} bytes");
-        totalObjects++;
-    }
+var response = await sdk.DownloadObjectAsync(request);
+byte[] fileContent = response.Content;
 
-    continuationToken = response.Data.FirstOrDefault()?.ContinuationToken;
-}
-while (!string.IsNullOrEmpty(continuationToken));
-
-Console.WriteLine($"Total objects: {totalObjects}");
+// Save to file
+await File.WriteAllBytesAsync("downloaded-report.pdf", fileContent);
 ```
 
 **Dependency Injection (ASP.NET Core):**
 
 ```csharp
-[HttpGet("list")]
-public async Task<IActionResult> ListObjects(
-    [FromQuery] string? prefix = null, 
-    [FromQuery] int maxKeys = 100,
-    [FromQuery] string? continuationToken = null)
+[HttpGet("download/{*objectKey}")]
+public async Task<IActionResult> Download(string objectKey, [FromQuery] string? versionId = null)
 {
-    var response = await _sdk.ListAllObjectsAsync(
-        MaxKeys: maxKeys,
-        ContinuationToken: continuationToken,
-        Prefix: prefix);
-
-    return Ok(new
+    var request = new DownloadObjectRequest
     {
-        objects = response.Data.Select(obj => new
-        {
-            key = obj.ObjectKey,
-            size = obj.Size,
-            lastModified = obj.LastModified
-        }),
-        continuationToken = response.Data.FirstOrDefault()?.ContinuationToken
-    });
-}
-```
+        ObjectKey = objectKey,
+        VersionId = versionId
+    };
 
-### Generate Presigned URLs
+    var response = await _sdk.DownloadObjectAsync(request);
 
-**Manual (Console App):**
-
-```csharp
-var response = await sdk.GetPresignedURLAsync(
-    EPresignedType.Download,
-    "documents/report.pdf",
-    new() { ExpireSeconds = 3600 });
-
-string signature = response.Data.Signature;
-int expiresIn = response.Data.ExpriresInSeconds;
-
-Console.WriteLine($"Signature: {signature}");
-Console.WriteLine($"Expires in: {expiresIn} seconds");
-```
-
-**Dependency Injection (ASP.NET Core):**
-
-```csharp
-[HttpGet("presigned-url")]
-public async Task<IActionResult> GeneratePresignedUrl(
-    [FromQuery] string objectKey,
-    [FromQuery] string type = "download",
-    [FromQuery] int expireSeconds = 3600)
-{
-    var presignedType = type.ToLower() == "upload" ? EPresignedType.Upload : EPresignedType.Download;
-
-    var response = await _sdk.GetPresignedURLAsync(
-        presignedType,
-        objectKey,
-        new() { ExpireSeconds = expireSeconds });
-
-    return Ok(new
-    {
-        signature = response.Data.Signature,
-        expiresInSeconds = response.Data.ExpriresInSeconds,
-        activeFrom = response.Data.ActiveFrom
-    });
-}
-```
-
-### Check Object Existence
-
-**Manual (Console App):**
-
-```csharp
-var result = await sdk.ExistsObjectAsync("documents/report.pdf");
-
-if (result.Success)
-{
-    Console.WriteLine("File exists!");
-}
-else
-{
-    Console.WriteLine("File not found.");
-}
-```
-
-**Dependency Injection (ASP.NET Core):**
-
-```csharp
-[HttpHead("{*objectKey}")]
-public async Task<IActionResult> CheckExists(string objectKey)
-{
-    var result = await _sdk.ExistsObjectAsync(objectKey);
-
-    return result.Success ? Ok() : NotFound();
+    return File(
+        response.Content, 
+        response.ContentType ?? "application/octet-stream",
+        Path.GetFileName(objectKey)
+    );
 }
 ```
 
@@ -876,6 +718,103 @@ public async Task<IActionResult> GetExtractionStatus([FromQuery] string taskId)
 public record ExtractRequest(string ZipPath, string Destination);
 ```
 
+### Generate Presigned URLs
+
+**Manual (Console App):**
+
+```csharp
+var response = await sdk.GetPresignedURLAsync(
+    EPresignedType.Download,
+    "documents/report.pdf",
+    new() { ExpireSeconds = 3600 });
+
+string signature = response.Data.Signature;
+int expiresIn = response.Data.ExpriresInSeconds;
+
+Console.WriteLine($"Signature: {signature}");
+Console.WriteLine($"Expires in: {expiresIn} seconds");
+```
+
+**Dependency Injection (ASP.NET Core):**
+
+```csharp
+[HttpGet("presigned-url")]
+public async Task<IActionResult> GeneratePresignedUrl(
+    [FromQuery] string objectKey,
+    [FromQuery] string type = "download",
+    [FromQuery] int expireSeconds = 3600)
+{
+    var presignedType = type.ToLower() == "upload" ? EPresignedType.Upload : EPresignedType.Download;
+
+    var response = await _sdk.GetPresignedURLAsync(
+        presignedType,
+        objectKey,
+        new() { ExpireSeconds = expireSeconds });
+
+    return Ok(new
+    {
+        signature = response.Data.Signature,
+        expiresInSeconds = response.Data.ExpriresInSeconds,
+        activeFrom = response.Data.ActiveFrom
+    });
+}
+```
+
+### List Objects with Pagination
+
+**Manual (Console App):**
+
+```csharp
+string? continuationToken = null;
+int totalObjects = 0;
+
+do
+{
+    var response = await sdk.ListAllObjectsAsync(
+        MaxKeys: 100,
+        ContinuationToken: continuationToken,
+        Prefix: "documents/");
+
+    foreach (var obj in response.Data)
+    {
+        Console.WriteLine($"{obj.ObjectKey} - {obj.Size} bytes");
+        totalObjects++;
+    }
+
+    continuationToken = response.Data.FirstOrDefault()?.ContinuationToken;
+}
+while (!string.IsNullOrEmpty(continuationToken));
+
+Console.WriteLine($"Total objects: {totalObjects}");
+```
+
+**Dependency Injection (ASP.NET Core):**
+
+```csharp
+[HttpGet("list")]
+public async Task<IActionResult> ListObjects(
+    [FromQuery] string? prefix = null, 
+    [FromQuery] int maxKeys = 100,
+    [FromQuery] string? continuationToken = null)
+{
+    var response = await _sdk.ListAllObjectsAsync(
+        MaxKeys: maxKeys,
+        ContinuationToken: continuationToken,
+        Prefix: prefix);
+
+    return Ok(new
+    {
+        objects = response.Data.Select(obj => new
+        {
+            key = obj.ObjectKey,
+            size = obj.Size,
+            lastModified = obj.LastModified
+        }),
+        continuationToken = response.Data.FirstOrDefault()?.ContinuationToken
+    });
+}
+```
+
 ### Rename Objects
 
 **Manual (Console App):**
@@ -901,6 +840,85 @@ public async Task<IActionResult> RenameFile([FromBody] RenameRequest renameReque
 }
 
 public record RenameRequest(string CurrentKey, string NewKey);
+```
+
+### Upload
+
+**Manual (Console App):**
+
+```csharp
+using StratusSDK;
+
+var options = new StratusOptions
+{
+    BucketName = "documents",
+    ProjectID = "1234567890",
+    Region = ERegion.US,
+    // Environment defaults to Development; override if needed:
+    // Environment = EStratusEnvironment.Production,
+    ClientID = "your-client-id",
+    ClientSecret = "your-client-secret",
+    RefreshToken = "your-refresh-token",
+    RedirectUrl = "your-redirect-url"
+};
+
+var sdk = StratusSDKFactory.Create(options);
+
+// Upload a file from disk
+await sdk.UploadAsync(
+    "documents/report.pdf",
+    UploadContent.FromFile("C:/reports/quarterly.pdf"),
+    EContentType.ApplicationPdf);
+
+// Upload a string
+await sdk.UploadAsync(
+    "config/settings.json",
+    UploadContent.FromString("{\"key\": \"value\"}"));
+
+// Upload raw bytes
+byte[] imageBytes = await File.ReadAllBytesAsync("photo.png");
+await sdk.UploadAsync(
+    "images/photo.png",
+    UploadContent.FromBytes(imageBytes),
+    EContentType.ImagePng);
+
+// Upload a stream
+using var stream = File.OpenRead("data.bin");
+await sdk.UploadAsync(
+    "data/file.bin",
+    UploadContent.FromStream(stream),
+    EContentType.ApplicationOctetStream);
+```
+
+**Dependency Injection (ASP.NET Core):**
+
+```csharp
+using StratusSDK;
+using Microsoft.AspNetCore.Mvc;
+
+[ApiController]
+[Route("api/[controller]")]
+public class DocumentsController : ControllerBase
+{
+    private readonly IStratusSDK _sdk;
+
+    public DocumentsController(IStratusSDK sdk)
+    {
+        _sdk = sdk;
+    }
+
+    [HttpPost("upload")]
+    public async Task<IActionResult> UploadDocument(IFormFile file)
+    {
+        using var stream = file.OpenReadStream();
+
+        await _sdk.UploadAsync(
+            $"documents/{file.FileName}",
+            UploadContent.FromStream(stream));
+
+        return Ok(new { message = "Document uploaded successfully" });
+    }
+}
 ```
 
 ## Data Models Reference
@@ -953,16 +971,6 @@ Object identifier for deletion (used with `DeleteObjectsAsync`).
 | `Key` | `string` | Yes | Object key to delete | `"temp/file.txt"` |
 | `VersionId` | `string?` | No | Specific version to delete | `"01hh9hkfdf07y8pnpbwtkt8cf7"` |
 
-#### DownloadObjectRequest
-
-Request model for downloading objects from storage.
-
-| Property | Type | Required | Description | Example |
-|----------|------|----------|-------------|---------|
-| `ObjectKey` | `string` | Yes | Path/key of the object to download | `"documents/report.pdf"` |
-| `VersionId` | `string?` | No | Specific version to download | `"01hh9hkfdf07y8pnpbwtkt8cf7"` |
-| `HeaderOptions` | `DownloadHeaderOptions?` | No | Download configuration options | See DownloadHeaderOptions below |
-
 #### DownloadHeaderOptions
 
 Configuration options for download operations.
@@ -971,6 +979,16 @@ Configuration options for download operations.
 |----------|------|---------|-------------|---------|
 | `Range` | `int?` | `null` | Byte range to download | `1024` |
 | `RetrieveMeta` | `bool?` | `null` | Include metadata in response | `true` |
+
+#### DownloadObjectRequest
+
+Request model for downloading objects from storage.
+
+| Property | Type | Required | Description | Example |
+|----------|------|----------|-------------|---------|
+| `ObjectKey` | `string` | Yes | Path/key of the object to download | `"documents/report.pdf"` |
+| `VersionId` | `string?` | No | Specific version to download | `"01hh9hkfdf07y8pnpbwtkt8cf7"` |
+| `HeaderOptions` | `DownloadHeaderOptions?` | No | Download configuration options | See DownloadHeaderOptions above |
 
 #### PresignedUrlOptions
 
@@ -982,14 +1000,41 @@ Optional settings for presigned URL generation.
 | `ActiveFrom` | `TimeOnly?` | `null` | URL active from time | `new TimeOnly(14, 30)` |
 | `VersionId` | `string?` | `null` | Specific version | `"version123"` |
 
-#### UploadObjectRequestOptions
+#### PutObjectMetadataRequestBody
 
-Optional settings for upload operations.
+Request body for updating object metadata.
 
 | Property | Type | Required | Description | Example |
 |----------|------|----------|-------------|---------|
-| `HeaderOptions` | `UploadHeaderOptions?` | No | Upload configuration options | See UploadHeaderOptions below |
-| `VersionId` | `string?` | No | Version ID for versioned buckets | `"01hh9hkfdf07y8pnpbwtkt8cf7"` |
+| `Metadata` | `Dictionary<string, string>` | Yes | Custom metadata key-value pairs | `{ "Author": "Shahil" }` |
+
+#### UploadContent
+
+Static factory class for creating upload content (`IStratusHttpContent`) to pass to `UploadAsync`. Each factory method wraps your data source so the SDK can send it as an HTTP request body.
+
+| Factory Method | Input Type | Default Content Type | Description |
+|----------------|-----------|----------------------|-------------|
+| `UploadContent.FromFile(path, contentType?)` | `string` (file path) | `ApplicationOctetStream` | Reads a file from disk |
+| `UploadContent.FromStream(stream, contentType?)` | `Stream` | `ApplicationOctetStream` | Uploads from an open stream (caller manages lifetime) |
+| `UploadContent.FromBytes(bytes, contentType?)` | `byte[]` | `ApplicationOctetStream` | Uploads raw bytes |
+| `UploadContent.FromString(content, contentType?)` | `string` | `TextPlain` | Uploads UTF-8 encoded string content |
+
+**Examples:**
+```csharp
+// From a file on disk
+var fileContent = UploadContent.FromFile("C:/reports/report.pdf");
+
+// From a stream
+using var stream = File.OpenRead("data.bin");
+var streamContent = UploadContent.FromStream(stream);
+
+// From raw bytes
+byte[] bytes = await File.ReadAllBytesAsync("image.png");
+var bytesContent = UploadContent.FromBytes(bytes);
+
+// From a string
+var stringContent = UploadContent.FromString("{\"key\": \"value\"}");
+```
 
 #### UploadHeaderOptions
 
@@ -1004,13 +1049,14 @@ Configuration options for upload operations.
 | `ExpiresAfter` | `float` | `0` | Auto-delete after seconds (min: 60) | `86400` (24 hours) |
 | `Metadata` | `Dictionary<string, string>?` | `null` | Custom metadata (max: 2047 chars total) | `{ "category": "reports" }` |
 
-#### PutObjectMetadataRequestBody
+#### UploadObjectRequestOptions
 
-Request body for updating object metadata.
+Optional settings for upload operations.
 
 | Property | Type | Required | Description | Example |
 |----------|------|----------|-------------|---------|
-| `Metadata` | `Dictionary<string, string>` | Yes | Custom metadata key-value pairs | `{ "Author": "Shahil" }` |
+| `HeaderOptions` | `UploadHeaderOptions?` | No | Upload configuration options | See UploadHeaderOptions above |
+| `VersionId` | `string?` | No | Version ID for versioned buckets | `"01hh9hkfdf07y8pnpbwtkt8cf7"` |
 
 ### Response Models
 
@@ -1043,6 +1089,25 @@ Represents an object in storage.
 | `ETag` | `string?` | Entity tag for caching |
 | `LastModified` | `DateTime` | Last modification time |
 
+#### CreateBucketSignatureData
+
+Bucket signature details.
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `Signature` | `string` | The STS policy signature string for secure bucket access |
+| `ExpiryTime` | `long` | Signature expiry timestamp (Unix epoch in milliseconds) |
+
+#### CreateBucketSignatureResponse
+
+Response from bucket signature creation.
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `Status` | `string` | Response status (e.g., `"success"`) |
+| `Success` | `bool` | Whether the operation succeeded |
+| `Data` | `CreateBucketSignatureData` | Signature data |
+
 #### DownloadObjectResponse
 
 Response from download operation.
@@ -1052,14 +1117,6 @@ Response from download operation.
 | `Success` | `bool` | Whether the download succeeded |
 | `Message` | `string` | Status message |
 | `Data` | `byte[]?` | Downloaded file content |
-
-#### GetAllObjectsResponse
-
-Response from list objects operation.
-
-| Property | Type | Description |
-|----------|------|-------------|
-| `Data` | `List<GetAllObjectResponseData>` | List of objects |
 
 #### GetAllObjectResponseData
 
@@ -1075,13 +1132,30 @@ Individual object data in list response.
 | `LastModified` | `DateTime` | Last modification time |
 | `ContinuationToken` | `string?` | Token for next page |
 
-#### PresignedURLResponse
+#### GetAllObjectsResponse
 
-Response from presigned URL generation.
+Response from list objects operation.
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `Data` | `PresignedUrlData` | Presigned URL data |
+| `Data` | `List<GetAllObjectResponseData>` | List of objects |
+
+#### GetStatusOfZipExtractData
+
+ZIP extraction status details.
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `Status` | `EZipExtractStatus` | Extraction status (PENDING/COMPLETED/FAILED) |
+| `TaskId` | `string` | Extraction task identifier |
+
+#### GetStatusOfZipExtractResponse
+
+Response from ZIP extraction status check.
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `Data` | `GetStatusOfZipExtractData` | Extraction status data |
 
 #### PresignedUrlData
 
@@ -1093,64 +1167,25 @@ Presigned URL details.
 | `ExpriresInSeconds` | `int` | Validity duration in seconds |
 | `ActiveFrom` | `int` | Activation timestamp |
 
-#### GetStatusOfZipExtractResponse
+#### PresignedURLResponse
 
-Response from ZIP extraction status check.
-
-| Property | Type | Description |
-|----------|------|-------------|
-| `Data` | `GetStatusOfZipExtractData` | Extraction status data |
-
-#### GetStatusOfZipExtractData
-
-ZIP extraction status details.
+Response from presigned URL generation.
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `Status` | `EZipExtractStatus` | Extraction status (PENDING/COMPLETED/FAILED) |
-| `TaskId` | `string` | Extraction task identifier |
-
-#### CreateBucketSignatureResponse
-
-Response from bucket signature creation.
-
-| Property | Type | Description |
-|----------|------|-------------|
-| `Status` | `string` | Response status (e.g., `"success"`) |
-| `Success` | `bool` | Whether the operation succeeded |
-| `Data` | `CreateBucketSignatureData` | Signature data |
-
-#### CreateBucketSignatureData
-
-Bucket signature details.
-
-| Property | Type | Description |
-|----------|------|-------------|
-| `Signature` | `string` | The STS policy signature string for secure bucket access |
-| `ExpiryTime` | `long` | Signature expiry timestamp (Unix epoch in milliseconds) |
+| `Data` | `PresignedUrlData` | Presigned URL data |
 
 ### Enumerations
 
-#### ERegion
+#### ECachingStatus
 
-Available data center regions.
+Bucket caching status.
 
-| Value | Description | Location |
-|-------|-------------|----------|
-| `US` | United States | North America |
-| `EU` | European Union | Europe |
-| `IN` | India | Asia Pacific |
-| `AU` | Australia | Asia Pacific |
-| `JP` | Japan | Asia Pacific |
-| `CA` | Canada | North America |
-
-**Example:**
-```csharp
-var options = new StratusOptions
-{
-    Region = ERegion.EU // Use European data center
-};
-```
+| Value | Description |
+|-------|-------------|
+| `Enabled` | Caching is active |
+| `Disabled` | Caching is inactive |
+| `InProgress` | Caching is being configured |
 
 #### EContentType
 
@@ -1194,6 +1229,27 @@ var response = await sdk.GetPresignedURLAsync(
     new() { ExpireSeconds = 3600 });
 ```
 
+#### ERegion
+
+Available data center regions.
+
+| Value | Description | Location |
+|-------|-------------|----------|
+| `US` | United States | North America |
+| `EU` | European Union | Europe |
+| `IN` | India | Asia Pacific |
+| `AU` | Australia | Asia Pacific |
+| `JP` | Japan | Asia Pacific |
+| `CA` | Canada | North America |
+
+**Example:**
+```csharp
+var options = new StratusOptions
+{
+    Region = ERegion.EU // Use European data center
+};
+```
+
 #### EStratusKeyType
 
 Type of storage object.
@@ -1202,16 +1258,6 @@ Type of storage object.
 |-------|-------------|
 | `File` | Regular file object |
 | `Folder` | Directory/folder object |
-
-#### ECachingStatus
-
-Bucket caching status.
-
-| Value | Description |
-|-------|-------------|
-| `Enabled` | Caching is active |
-| `Disabled` | Caching is inactive |
-| `InProgress` | Caching is being configured |
 
 #### EZipExtractStatus
 
@@ -1251,28 +1297,25 @@ Main SDK interface defining all operations.
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `UploadFileAsync()` | `Task<UploadObjectResponse>` | Upload a file from disk |
-| `UploadStreamAsync()` | `Task<UploadObjectResponse>` | Upload from a stream |
-| `UploadStringAsync()` | `Task<UploadObjectResponse>` | Upload string content |
-| `UploadBytesAsync()` | `Task<UploadObjectResponse>` | Upload raw bytes |
-| `DownloadObjectAsync()` | `Task<DownloadObjectResponse>` | Download objects |
+| `CopyObjectAsync()` | `Task<CopyObjectResponse>` | Copy objects |
+| `CreateBucketSignatureAsync()` | `Task<CreateBucketSignatureResponse>` | Create bucket signature |
 | `DeleteObjectAsync()` | `Task<DeleteObjectResponse>` | Delete a single object |
 | `DeleteObjectsAsync()` | `Task<DeleteObjectResponse>` | Delete multiple objects |
 | `DeletePathAsync()` | `Task<DeletePathResponse>` | Delete path recursively |
-| `CopyObjectAsync()` | `Task<CopyObjectResponse>` | Copy objects |
-| `RenameObjectAsync()` | `Task<RenameObjectResponse>` | Rename objects |
-| `ExistsObjectAsync()` | `Task<ExistsObjectResponse>` | Check object existence |
+| `DownloadObjectAsync()` | `Task<DownloadObjectResponse>` | Download objects |
 | `ExistsBucketAsync()` | `Task<ExistsBucketResponse>` | Check bucket existence |
+| `ExistsObjectAsync()` | `Task<ExistsObjectResponse>` | Check object existence |
+| `ExtractZipObjectAsync()` | `Task<ExtractZipObjectResponse>` | Extract ZIP file |
+| `GetBucketAsync()` | `Task<GetBucketResponse>` | Get bucket information |
+| `GetExtractionStatusAsync()` | `Task<GetStatusOfZipExtractResponse>` | Check extraction status |
 | `GetObjectAsync()` | `Task<GetObjectResponse>` | Get object metadata |
 | `GetObjectVersionsAsync()` | `Task<GetAllObjectVersionsResponse>` | List object versions |
+| `GetPresignedURLAsync()` | `Task<PresignedURLResponse>` | Generate presigned URL |
+| `ListAllBucketsAsync()` | `Task<ListBucketResponse>` | List all buckets |
 | `ListAllObjectsAsync()` | `Task<ListAllObjectsResponse>` | List objects |
 | `PutObjectMetadataAsync()` | `Task<PutObjectMetadataResponse>` | Update object metadata |
-| `GetBucketAsync()` | `Task<GetBucketResponse>` | Get bucket information |
-| `ListAllBucketsAsync()` | `Task<ListBucketResponse>` | List all buckets |
-| `CreateBucketSignatureAsync()` | `Task<CreateBucketSignatureResponse>` | Create bucket signature |
-| `GetPresignedURLAsync()` | `Task<PresignedURLResponse>` | Generate presigned URL |
-| `ExtractZipObjectAsync()` | `Task<ExtractZipObjectResponse>` | Extract ZIP file |
-| `GetExtractionStatusAsync()` | `Task<GetStatusOfZipExtractResponse>` | Check extraction status |
+| `RenameObjectAsync()` | `Task<RenameObjectResponse>` | Rename objects |
+| `UploadAsync()` | `Task<UploadObjectResponse>` | Upload content (file, stream, bytes, or string) via `UploadContent` |
 
 **Usage:**
 
@@ -1290,9 +1333,9 @@ public class MyService
 
     public async Task ProcessFile()
     {
-        await _sdk.UploadStringAsync(
+        await _sdk.UploadAsync(
             "file.txt",
-            "Hello, Stratus!");
+            UploadContent.FromString("Hello, Stratus!"));
     }
 }
 ```
@@ -1300,131 +1343,6 @@ public class MyService
 ## API Reference
 
 ### Object Operations
-
----
-
-#### `UploadFileAsync`
-
-Uploads a file from disk to storage.
-
-**Parameters:**
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `objectKey` | `string` | Yes | Destination object key |
-| `filePath` | `string` | Yes | Local file path to upload |
-| `contentType` | `EContentType` | No | MIME content type (default: `TextPlain`) |
-| `options` | `UploadObjectRequestOptions?` | No | Optional upload settings including header options and version ID |
-| `ct` | `CancellationToken` | No | Cancellation token |
-
-**Returns:** `Task<UploadObjectResponse>`
-
-```csharp
-await sdk.UploadFileAsync(
-    "reports/quarterly.pdf",
-    "C:/reports/quarterly.pdf",
-    contentType: EContentType.ApplicationPdf);
-```
-
----
-
-#### `UploadStreamAsync`
-
-Uploads a stream to storage.
-
-**Parameters:**
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `objectKey` | `string` | Yes | Destination object key |
-| `contentStream` | `Stream` | Yes | The stream to upload |
-| `options` | `UploadObjectRequestOptions?` | No | Optional upload settings including header options and version ID |
-| `ct` | `CancellationToken` | No | Cancellation token |
-
-**Returns:** `Task<UploadObjectResponse>`
-
-```csharp
-using var stream = File.OpenRead("data.bin");
-
-await sdk.UploadStreamAsync(
-    "data/file.bin",
-    stream);
-```
-
----
-
-#### `UploadStringAsync`
-
-Uploads string content to storage.
-
-**Parameters:**
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `objectKey` | `string` | Yes | Destination object key |
-| `content` | `string` | Yes | The string content to upload |
-| `options` | `UploadObjectRequestOptions?` | No | Optional upload settings including header options and version ID |
-| `ct` | `CancellationToken` | No | Cancellation token |
-
-**Returns:** `Task<UploadObjectResponse>`
-
-```csharp
-var json = JsonSerializer.Serialize(new { name = "test" });
-
-await sdk.UploadStringAsync(
-    "config/settings.json",
-    json);
-```
-
----
-
-#### `UploadBytesAsync`
-
-Uploads raw bytes to storage.
-
-**Parameters:**
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `objectKey` | `string` | Yes | Destination object key |
-| `contentBytes` | `byte[]` | Yes | The byte array to upload |
-| `options` | `UploadObjectRequestOptions?` | No | Optional upload settings including header options and version ID |
-| `ct` | `CancellationToken` | No | Cancellation token |
-
-**Returns:** `Task<UploadObjectResponse>`
-
-```csharp
-byte[] imageBytes = await File.ReadAllBytesAsync("photo.png");
-
-await sdk.UploadBytesAsync(
-    "images/photo.png",
-    imageBytes);
-```
-
----
-
-#### `DownloadObjectAsync`
-
-Downloads an object from the bucket.
-
-**Parameters:**
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `request` | `DownloadObjectRequest` | Yes | Download request with object key, optional version, and header options |
-| `ct` | `CancellationToken` | No | Cancellation token |
-
-**Returns:** `Task<DownloadObjectResponse>`
-
-```csharp
-var response = await sdk.DownloadObjectAsync(new DownloadObjectRequest
-{
-    ObjectKey = "documents/report.pdf",
-    VersionId = "01hh9hkfdf07y8pnpbwtkt8cf7" // optional
-});
-
-await File.WriteAllBytesAsync("report.pdf", response.Data!);
-```
 
 ---
 
@@ -1446,28 +1364,6 @@ Copies an object from one location to another within the bucket.
 await sdk.CopyObjectAsync(
     "documents/report.pdf",
     "archive/2024/report.pdf");
-```
-
----
-
-#### `RenameObjectAsync`
-
-Renames an object in the bucket.
-
-**Parameters:**
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `currentKey` | `string` | Yes | The current object key |
-| `renameTo` | `string` | Yes | The new object key |
-| `ct` | `CancellationToken` | No | Cancellation token |
-
-**Returns:** `Task<RenameObjectResponse>`
-
-```csharp
-await sdk.RenameObjectAsync(
-    "documents/draft.pdf",
-    "documents/final-report.pdf");
 ```
 
 ---
@@ -1557,6 +1453,31 @@ await sdk.DeletePathAsync("temp/uploads/");
 
 ---
 
+#### `DownloadObjectAsync`
+
+Downloads an object from the bucket.
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `request` | `DownloadObjectRequest` | Yes | Download request with object key, optional version, and header options |
+| `ct` | `CancellationToken` | No | Cancellation token |
+
+**Returns:** `Task<DownloadObjectResponse>`
+
+```csharp
+var response = await sdk.DownloadObjectAsync(new DownloadObjectRequest
+{
+    ObjectKey = "documents/report.pdf",
+    VersionId = "01hh9hkfdf07y8pnpbwtkt8cf7" // optional
+});
+
+await File.WriteAllBytesAsync("report.pdf", response.Data!);
+```
+
+---
+
 #### `ExistsObjectAsync`
 
 Checks if a specific object exists in the bucket.
@@ -1578,6 +1499,83 @@ var result = await sdk.ExistsObjectAsync("documents/report.pdf");
 var versionResult = await sdk.ExistsObjectAsync(
     "documents/report.pdf",
     versionId: "01hh9hkfdf07y8pnpbwtkt8cf7");
+```
+
+---
+
+#### `RenameObjectAsync`
+
+Renames an object in the bucket.
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `currentKey` | `string` | Yes | The current object key |
+| `renameTo` | `string` | Yes | The new object key |
+| `ct` | `CancellationToken` | No | Cancellation token |
+
+**Returns:** `Task<RenameObjectResponse>`
+
+```csharp
+await sdk.RenameObjectAsync(
+    "documents/draft.pdf",
+    "documents/final-report.pdf");
+```
+
+---
+
+#### `UploadAsync`
+
+Uploads content to storage. Use the `UploadContent` factory to create the content from a file path, stream, byte array, or string.
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `objectKey` | `string` | Yes | Destination object key |
+| `content` | `IStratusHttpContent` | Yes | Upload content created via `UploadContent.FromFile()`, `.FromStream()`, `.FromBytes()`, or `.FromString()` |
+| `contentType` | `EContentType` | No | MIME content type (default: `TextPlain`) |
+| `options` | `UploadObjectRequestOptions?` | No | Optional upload settings including header options and version ID |
+| `ct` | `CancellationToken` | No | Cancellation token |
+
+**Returns:** `Task<UploadObjectResponse>`
+
+**Upload a file from disk:**
+```csharp
+await sdk.UploadAsync(
+    "reports/quarterly.pdf",
+    UploadContent.FromFile("C:/reports/quarterly.pdf"),
+    EContentType.ApplicationPdf);
+```
+
+**Upload a string:**
+```csharp
+var json = JsonSerializer.Serialize(new { name = "test" });
+
+await sdk.UploadAsync(
+    "config/settings.json",
+    UploadContent.FromString(json));
+```
+
+**Upload raw bytes:**
+```csharp
+byte[] imageBytes = await File.ReadAllBytesAsync("photo.png");
+
+await sdk.UploadAsync(
+    "images/photo.png",
+    UploadContent.FromBytes(imageBytes),
+    EContentType.ImagePng);
+```
+
+**Upload a stream:**
+```csharp
+using var stream = File.OpenRead("data.bin");
+
+await sdk.UploadAsync(
+    "data/file.bin",
+    UploadContent.FromStream(stream),
+    EContentType.ApplicationOctetStream);
 ```
 
 ---
@@ -1689,6 +1687,45 @@ await sdk.PutObjectMetadataAsync(
 
 ---
 
+#### `CreateBucketSignatureAsync`
+
+Creates a signature for the bucket to enable secure access.
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `ct` | `CancellationToken` | No | Cancellation token |
+
+**Returns:** `Task<CreateBucketSignatureResponse>`
+
+```csharp
+var response = await sdk.CreateBucketSignatureAsync();
+
+string signature = response.Data.Signature;
+long expiryTime = response.Data.ExpiryTime;
+```
+
+---
+
+#### `ExistsBucketAsync`
+
+Checks if the configured bucket exists.
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `ct` | `CancellationToken` | No | Cancellation token |
+
+**Returns:** `Task<ExistsBucketResponse>`
+
+```csharp
+var result = await sdk.ExistsBucketAsync();
+```
+
+---
+
 #### `GetBucketAsync`
 
 Retrieves bucket information and metadata.
@@ -1725,72 +1762,7 @@ var buckets = await sdk.ListAllBucketsAsync();
 
 ---
 
-#### `ExistsBucketAsync`
-
-Checks if the configured bucket exists.
-
-**Parameters:**
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `ct` | `CancellationToken` | No | Cancellation token |
-
-**Returns:** `Task<ExistsBucketResponse>`
-
-```csharp
-var result = await sdk.ExistsBucketAsync();
-```
-
----
-
-#### `CreateBucketSignatureAsync`
-
-Creates a signature for the bucket to enable secure access.
-
-**Parameters:**
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `ct` | `CancellationToken` | No | Cancellation token |
-
-**Returns:** `Task<CreateBucketSignatureResponse>`
-
-```csharp
-var response = await sdk.CreateBucketSignatureAsync();
-
-string signature = response.Data.Signature;
-long expiryTime = response.Data.ExpiryTime;
-```
-
----
-
 ### Advanced Operations
-
----
-
-#### `GetPresignedURLAsync`
-
-Generates a presigned URL for uploading or downloading an object without authentication.
-
-**Parameters:**
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `Type` | `EPresignedType` | Yes | The type of presigned URL (Upload or Download) |
-| `objectKey` | `string` | Yes | Object key to generate the URL for |
-| `options` | `PresignedUrlOptions?` | No | Optional settings including expiration, activation time, and version ID |
-| `ct` | `CancellationToken` | No | Cancellation token |
-
-**Returns:** `Task<PresignedURLResponse>`
-
-```csharp
-var response = await sdk.GetPresignedURLAsync(
-    EPresignedType.Download,
-    "documents/report.pdf",
-    new() { ExpireSeconds = 3600 });
-
-string signature = response.Data.Signature;
-```
 
 ---
 
@@ -1836,6 +1808,32 @@ var status = await sdk.GetExtractionStatusAsync(taskId);
 
 if (status.Data.Status == EZipExtractStatus.COMPLETED)
     Console.WriteLine("Extraction complete!");
+```
+
+---
+
+#### `GetPresignedURLAsync`
+
+Generates a presigned URL for uploading or downloading an object without authentication.
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `Type` | `EPresignedType` | Yes | The type of presigned URL (Upload or Download) |
+| `objectKey` | `string` | Yes | Object key to generate the URL for |
+| `options` | `PresignedUrlOptions?` | No | Optional settings including expiration, activation time, and version ID |
+| `ct` | `CancellationToken` | No | Cancellation token |
+
+**Returns:** `Task<PresignedURLResponse>`
+
+```csharp
+var response = await sdk.GetPresignedURLAsync(
+    EPresignedType.Download,
+    "documents/report.pdf",
+    new() { ExpireSeconds = 3600 });
+
+string signature = response.Data.Signature;
 ```
 
 ## Error Handling
@@ -1891,26 +1889,23 @@ These operations have been thoroughly tested and are ready for production use:
 
 | Operation | Description |
 |-----------|-------------|
-| `ListAllBucketsAsync()` | List all buckets |
-| `ListAllObjectsAsync()` | List all objects |
-| `ExistsBucketAsync()` | Check bucket existence |
-| `ExistsObjectAsync()` | Check object existence |
-| `DownloadObjectAsync()` | Download objects |
-| `GetBucketAsync()` | Get bucket information |
-| `RenameObjectAsync()` | Rename objects |
 | `CopyObjectAsync()` | Copy objects |
-| `GetPresignedURLAsync()` | Generate presigned URLs (upload and download) |
-| `PutObjectMetadataAsync()` | Update object metadata |
-| `UploadFileAsync()` | Upload a file from disk |
-| `UploadStreamAsync()` | Upload from a stream |
-| `UploadStringAsync()` | Upload string content |
-| `UploadBytesAsync()` | Upload raw bytes |
-| `ExtractZipObjectAsync()` | Extract ZIP file in cloud |
-| `GetExtractionStatusAsync()` | Check extraction status |
+| `CreateBucketSignatureAsync()` | Create bucket signature |
 | `DeleteObjectAsync()` | Delete a single object |
 | `DeleteObjectsAsync()` | Delete multiple objects |
 | `DeletePathAsync()` | Delete path recursively |
-| `CreateBucketSignatureAsync()` | Create bucket signature |
+| `DownloadObjectAsync()` | Download objects |
+| `ExistsBucketAsync()` | Check bucket existence |
+| `ExistsObjectAsync()` | Check object existence |
+| `ExtractZipObjectAsync()` | Extract ZIP file in cloud |
+| `GetBucketAsync()` | Get bucket information |
+| `GetExtractionStatusAsync()` | Check extraction status |
+| `GetPresignedURLAsync()` | Generate presigned URLs (upload and download) |
+| `ListAllBucketsAsync()` | List all buckets |
+| `ListAllObjectsAsync()` | List all objects |
+| `PutObjectMetadataAsync()` | Update object metadata |
+| `RenameObjectAsync()` | Rename objects |
+| `UploadAsync()` | Upload content (file, stream, bytes, or string) |
 
 ### Experimental Operations
 
@@ -2030,6 +2025,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Changelog
+
+### Version 1.3.0
+- **Breaking:** Replaced `UploadFileAsync()`, `UploadStreamAsync()`, `UploadStringAsync()`, `UploadBytesAsync()`, and `UploadFileAsStreamAsync()` with a single `UploadAsync()` method
+- Added `UploadContent` static factory class with `FromFile()`, `FromStream()`, `FromBytes()`, and `FromString()` methods to create upload content
+- `UploadAsync()` accepts `IStratusHttpContent` (created via `UploadContent`) and an optional `EContentType` parameter
+- Removed `Samples/StratusController.cs` from the SDK package
 
 ### Version 1.2.0
 - All public methods now use the `Async` suffix consistently (`UploadFileAsync`, `GetPresignedURLAsync`, `GetExtractionStatusAsync`, `GetObjectVersionsAsync`)

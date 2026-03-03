@@ -45,7 +45,7 @@ namespace StratusSDK
         /// Gets or sets the Stratus environment (optional).
         /// </summary>
         /// <value>The environment enum value or null.</value>
-        public EStratusEnvironment? Environment { get; init; } = EStratusEnvironment.Development;
+        public EStratusEnvironment? Environment { get; set; } = EStratusEnvironment.Development;
 
         public string GetBucketUrl() => Environment switch
         {

@@ -11,10 +11,18 @@
 //
 // ============================================================================
 
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
 namespace StratusSDK.Samples
 {
     public static class StratusNonDISample
     {
+        private const string PdfFilePath = "D:\\SideProjects\\TestApp\\assets\\pdf-test.pdf";
+        private const string ZipFilePath = "D:\\SideProjects\\TestApp\\assets\\test.zip";
+        private const string UploadFilePath = "D:\\SideProjects\\TestApp\\assets\\upload-test-file.txt";
+
+
         private static IStratusSDK CreateSDK()
         {
             var options = new StratusOptions
@@ -201,24 +209,48 @@ namespace StratusSDK.Samples
             Console.WriteLine(response);
         }
 
-        public static async Task UploadFileAsync()
+        public static async Task UploadByFilePath()
         {
             var stratus = CreateSDK();
-            var response = await stratus.UploadFileAsync(
-                "pdf-test.pdf",
-                "/path/to/local/file.pdf",
+
+            var objectKey = "pdf-test-2.pdf";
+
+            var response = await stratus.UploadAsync(
+                objectKey,
+                UploadContent.FromFile(PdfFilePath),
                 EContentType.ApplicationPdf);
-            Console.WriteLine(response);
         }
 
-        public static async Task UploadZipFileAsync()
+        public static async Task UploadByString()
         {
             var stratus = CreateSDK();
-            var response = await stratus.UploadFileAsync(
-                "archive.zip",
-                "/path/to/local/archive.zip",
+
+            var objectKey = "pdf-test-2.pdf";
+
+            var response = await stratus.UploadAsync(
+                objectKey,
+                UploadContent.FromString("Hello World!!"));
+        }
+
+        public static async Task UploadZipObject()
+        {
+            var stratus = CreateSDK();
+            var objectKey = "test.zip";
+            var buffer = await System.IO.File.ReadAllBytesAsync(ZipFilePath);
+            var response = await stratus.UploadAsync(
+                objectKey,
+                UploadContent.FromBytes(buffer),
                 EContentType.ApplicationZip);
-            Console.WriteLine(response);
+        }
+
+        public static async Task UploadFileAsStream()
+        {
+            var stratus = CreateSDK();
+            var stream = System.IO.File.OpenRead(UploadFilePath);
+            var objectKey = "pdf-test-2.pdf";
+            var response = await stratus.UploadAsync(
+                objectKey,
+                UploadContent.FromStream(stream));
         }
     }
 }

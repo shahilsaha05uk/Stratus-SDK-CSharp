@@ -312,96 +312,22 @@ namespace StratusSDK
                     RenameTo = renameTo,
                 }, ct);
 
-        /// <summary>
-        /// Uploads raw bytes to storage.
-        /// </summary>
-        /// <param name="objectKey">The destination object key.</param>
-        /// <param name="contentBytes">The byte array to upload.</param>
-        /// <param name="options">Optional upload settings including header options and version ID.</param>
-        /// <param name="ct">Cancellation token to cancel the operation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the asynchronous operation with <see cref="UploadObjectResponse"/>.</returns>
-        /// <exception cref="StratusException">Thrown when the API request fails.</exception>
-        public Task<UploadObjectResponse> UploadBytesAsync(
-            string objectKey,
-            byte[] contentBytes,
-            UploadObjectRequestOptions? options = null,
-            CancellationToken ct = default)
-            => Op<UploadObjectOperation>().ExecuteAsync(new()
-            {
-                ObjectKey = new ObjectKey(objectKey),
-                Content = UploadContent.FromBytes(contentBytes, EContentType.TextPlain),
-                HeaderOptions = options?.HeaderOptions,
-                VersionId = options?.VersionId,
-            }, ct);
-
-        /// <summary>
-        /// Uploads a file from disk to storage.
-        /// </summary>
-        /// <param name="objectKey">The destination object key.</param>
-        /// <param name="filePath">The local file path to upload.</param>
-        /// <param name="options">Optional upload settings including header options and version ID.</param>
-        /// <param name="contentType">The MIME content type of the file. Defaults to <see cref="EContentType.TextPlain"/>.</param>
-        /// <param name="ct">Cancellation token to cancel the operation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the asynchronous operation with <see cref="UploadObjectResponse"/>.</returns>
-        /// <exception cref="StratusException">Thrown when the API request fails.</exception>
-        public Task<UploadObjectResponse> UploadFileAsync(
-            string objectKey,
-            string filePath,
-            EContentType contentType = EContentType.TextPlain,
-            UploadObjectRequestOptions? options = null,
-            CancellationToken ct = default)
-            => Op<UploadObjectOperation>().ExecuteAsync(new()
-            {
-                ObjectKey = new ObjectKey(objectKey),
-                Content = UploadContent.FromFile(filePath, contentType),
-                HeaderOptions = options?.HeaderOptions,
-                VersionId = options?.VersionId,
-            }, ct);
-
-        /// <summary>
-        /// Uploads a stream to storage.
-        /// </summary>
-        /// <param name="objectKey">The destination object key.</param>
-        /// <param name="contentStream">The stream to upload.</param>
-        /// <param name="options">Optional upload settings including header options and version ID.</param>
-        /// <param name="ct">Cancellation token to cancel the operation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the asynchronous operation with <see cref="UploadObjectResponse"/>.</returns>
-        /// <exception cref="StratusException">Thrown when the API request fails.</exception>
-        public Task<UploadObjectResponse> UploadStreamAsync(
-            string objectKey,
-            Stream contentStream,
+        public Task<UploadObjectResponse> UploadAsync(
+            string objectKey, 
+            IStratusHttpContent content, 
+            EContentType contentType = EContentType.TextPlain, 
             UploadObjectRequestOptions? options = null, 
             CancellationToken ct = default)
             => Op<UploadObjectOperation>().ExecuteAsync(new()
             {
                 ObjectKey = new ObjectKey(objectKey),
-                Content = UploadContent.FromStream(contentStream, EContentType.TextPlain),
+                Content = content,
                 HeaderOptions = options?.HeaderOptions,
                 VersionId = options?.VersionId,
             }, ct);
 
-        /// <summary>
-        /// Uploads a string to storage.
-        /// </summary>
-        /// <param name="objectKey">The destination object key.</param>
-        /// <param name="content">The string content to upload.</param>
-        /// <param name="options">Optional upload settings including header options and version ID.</param>
-        /// <param name="ct">Cancellation token to cancel the operation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the asynchronous operation with <see cref="UploadObjectResponse"/>.</returns>
-        /// <exception cref="StratusException">Thrown when the API request fails.</exception>
-        public Task<UploadObjectResponse> UploadStringAsync(
-            string objectKey,
-            string content,
-            UploadObjectRequestOptions? options = null,
-            CancellationToken ct = default)
-            => Op<UploadObjectOperation>().ExecuteAsync(new()
-            {
-                ObjectKey = new ObjectKey(objectKey),
-                Content = UploadContent.FromString(content),
-                HeaderOptions = options?.HeaderOptions,
-                VersionId = options?.VersionId,
-            }, ct);
 
         T Op<T>() where T : BaseOperation => resolver.Resolve<T>();
+
     }
 }

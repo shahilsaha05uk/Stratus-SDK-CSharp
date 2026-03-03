@@ -9,8 +9,7 @@ namespace StratusSDK
 
         public StreamUploadContent(
             Stream stream, 
-            EContentType? contentType = null, 
-            bool leaveOpen = false)
+            EContentType? contentType = null)
         {
             this.stream = stream;
             this.contentType = contentType?.ToMimeString();

@@ -40,6 +40,11 @@ namespace StratusSDK.Samples
         IStratusSDK stratus,
         ITokenManager tokenManager) : ControllerBase
     {
+        private const string PdfFilePath = "D:\\SideProjects\\TestApp\\assets\\pdf-test.pdf";
+        private const string ZipFilePath = "D:\\SideProjects\\TestApp\\assets\\test.zip";
+        private const string UploadFilePath = "D:\\SideProjects\\TestApp\\assets\\upload-test-file.txt";
+
+        //private const string FilePath = "path/to/file";
         public string? TaskId { get; set; }
 
         [HttpGet("object/copy")]
@@ -64,7 +69,7 @@ namespace StratusSDK.Samples
         [EndpointSummary("Delete Object")]
         public async Task<IActionResult> DeleteObject()
         {
-            var objectKey = new ObjectKey("pdf-test-2-renamed.pdf");
+            var objectKey = "pdf-test-2-renamed.pdf";
             var response = await stratus.DeleteObjectAsync(objectKey);
             return Ok(response);
         }
@@ -147,7 +152,7 @@ namespace StratusSDK.Samples
             var objectKey = "test.zip";
 
             var response = await stratus.ExtractZipObjectAsync(
-                new ObjectKey(objectKey),
+                objectKey,
                 "unzipped/");
 
             TaskId = response.Data.TaskId;
@@ -231,7 +236,7 @@ namespace StratusSDK.Samples
 
             var response = await stratus.GetPresignedURLAsync(
                 EPresignedType.Download,
-                new ObjectKey(objectKey),
+                objectKey,
                 new()
                 {
                     ExpireSeconds = 360, // 1 hour
@@ -248,7 +253,7 @@ namespace StratusSDK.Samples
 
             var response = await stratus.GetPresignedURLAsync(
                 EPresignedType.Upload,
-                new ObjectKey(objectKey),
+                objectKey,
                 new()
                 {
                     ExpireSeconds = 360, // 1 hour
@@ -293,33 +298,57 @@ namespace StratusSDK.Samples
             return Ok(response);
         }
 
-        [HttpGet("object/upload")]
-        [EndpointSummary("Upload Object")]
-        public async Task<IActionResult> UploadObject()
+        [HttpGet("object/upload-by-path")]
+        [EndpointSummary("Upload By File Path")]
+        public async Task<IActionResult> UploadByFilePath()
         {
-            var filePath = "/path/to/local/pdf-test-2.pdf";
             var objectKey = "pdf-test-2.pdf";
 
-            var response = await stratus.UploadFileAsync(
-                new ObjectKey(objectKey),
-                filePath,
+            var response = await stratus.UploadAsync(
+                objectKey,
+                UploadContent.FromFile(PdfFilePath),
                 EContentType.ApplicationPdf);
 
             return Ok(response);
         }
 
-        [HttpGet("object/upload-zip")]
-        [EndpointSummary("Upload Zip file")]
+        [HttpGet("object/upload-by-string")]
+        [EndpointSummary("Upload By String")]
+        public async Task<IActionResult> UploadByString()
+        {
+            var objectKey = "text-by-string.txt";
+
+            var response = await stratus.UploadAsync(
+                objectKey,
+                UploadContent.FromString("Hello World!!"),
+                EContentType.TextPlain);
+
+            return Ok(response);
+        }
+
+        [HttpGet("object/upload-by-bytes")]
+        [EndpointSummary("Upload By Bytes")]
         public async Task<IActionResult> UploadZipObject()
         {
-            var filePath = "/path/to/local/test.zip";
-            var objectKey = "test.zip";
-
-            var response = await stratus.UploadFileAsync(
-                new ObjectKey(objectKey),
-                filePath,
+            var objectKey = "test-by-bytes.zip";
+            var buffer = await System.IO.File.ReadAllBytesAsync(ZipFilePath);
+            var response = await stratus.UploadAsync(
+                objectKey,
+                UploadContent.FromBytes(buffer),
                 EContentType.ApplicationZip);
 
+            return Ok(response);
+        }
+
+        [HttpGet("object/upload-file-as-stream")]
+        [EndpointSummary("Upload File as Stream")]
+        public async Task<IActionResult> UploadFileAsStream()
+        {
+            var stream = System.IO.File.OpenRead(UploadFilePath);
+            var objectKey = "pdf-test-stream-2.pdf";
+            var response = await stratus.UploadAsync(
+                objectKey,
+                UploadContent.FromStream(stream));
             return Ok(response);
         }
     }

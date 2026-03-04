@@ -9,10 +9,9 @@ namespace StratusSDK
 
         public override Dictionary<string, string?> ToHeaders()
         {
-            var headers = new Dictionary<string, string?>();
-            AddIf(headers, HeaderKeys.Range, Range);
-            AddIf(headers, HeaderKeys.RetrieveMeta, RetrieveMeta);
-            return headers;
+            AddIf(HeaderKeys.Range, Range);
+            AddIf(HeaderKeys.RetrieveMeta, RetrieveMeta);
+            return base.ToHeaders();
         }
     }
 }

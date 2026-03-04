@@ -25,7 +25,7 @@ namespace StratusSDK
         /// If not specified, the content type will be auto-detected from the file extension.
         /// </remarks>
         /// <seealso cref="EContentType"/>
-        public EContentType ContentType { get; init; } = EContentType.TextPlain;
+        public EContentType? ContentType { get; init; } = EContentType.TextPlain;
 
         /// <summary>
         /// Gets or initializes the raw length of the object being uploaded in bytes.
@@ -89,7 +89,7 @@ namespace StratusSDK
         /// var options = new UploadHeaderOptions { ExpiresAfter = 86400 };
         /// </code>
         /// </example>
-        public float ExpiresAfter { get; init; }
+        public float? ExpiresAfter { get; init; }
 
         /// <summary>
         /// Gets or initializes custom metadata for the object as key-value pairs.
@@ -124,20 +124,17 @@ namespace StratusSDK
 
         public override Dictionary<string, string?> ToHeaders()
         {
-            var headers = new Dictionary<string, string?>();
-
-            AddIf(headers, HeaderKeys.ContentType, "text/plain");
-            AddIf(headers, HeaderKeys.ContentLength, ContentLength);
-            AddIf(headers, HeaderKeys.Overwrite, Overwrite);
-            AddIf(headers, HeaderKeys.ExpiresAfter, ExpiresAfter);
+            AddIf(HeaderKeys.ContentType, ContentType?.ToMimeString());
+            AddIf(HeaderKeys.ContentLength, ContentLength);
+            AddIf(HeaderKeys.Overwrite, Overwrite);
+            AddIf(HeaderKeys.ExpiresAfter, ExpiresAfter);
 
             if (Metadata?.Count > 0)
             {
-                headers[HeaderKeys.UserMeta] =
+                Headers[HeaderKeys.UserMeta] =
                     string.Join(";", Metadata.Select(kvp => $"{kvp.Key}={kvp.Value}"));
             }
-
-            return headers;
+            return base.ToHeaders();
         }
     }
 }

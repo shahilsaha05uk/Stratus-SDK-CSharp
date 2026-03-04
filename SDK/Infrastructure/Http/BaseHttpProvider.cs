@@ -51,7 +51,7 @@ namespace StratusSDK
             {
                 string s => s,
 
-                bool b => b ? "true" : "false",
+                bool b => b.ToString().ToLower(),
 
                 Enum e => e.ToString(),
 

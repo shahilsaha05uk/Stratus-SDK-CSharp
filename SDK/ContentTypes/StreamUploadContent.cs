@@ -4,19 +4,21 @@ namespace StratusSDK
 {
     public sealed class StreamUploadContent : IStratusHttpContent
     {
-        private readonly Stream stream;
         private readonly string? contentType;
-
+        private readonly Func<Stream> streamFactory;
         public StreamUploadContent(
-            Stream stream, 
+            Func<Stream> streamFactory, 
             EContentType? contentType = null)
         {
-            this.stream = stream;
+            this.streamFactory = streamFactory
+            ?? throw new ArgumentNullException(nameof(streamFactory));
             this.contentType = contentType?.ToMimeString();
         }
 
         public HttpContent ToContent()
         {
+            var stream = streamFactory() 
+                ?? throw new InvalidOperationException("Stream factory returned null.");
             var content = new StreamContent(stream);
 
             if (!string.IsNullOrWhiteSpace(contentType))

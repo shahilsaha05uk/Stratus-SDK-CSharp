@@ -12,7 +12,7 @@ namespace StratusSDK
             {
                 Method = HttpMethod.Put,
                 BaseUrl = Client.Options.GetBucketUrl(),
-                PathTemplate = "/{key}",
+                PathTemplate = "/{+key}",
                 PathParameters = new()
                 {
                     { PathKeys.Key, request.ObjectKey },

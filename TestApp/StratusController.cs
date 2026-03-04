@@ -30,8 +30,9 @@
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StratusSDK;
 
-namespace StratusSDK.Samples
+namespace DIExampleApp
 {
     [Route("stratus")]
     [Tags("Stratus SDK Test")]
@@ -42,7 +43,7 @@ namespace StratusSDK.Samples
     {
         private const string PdfFilePath = "D:\\SideProjects\\TestApp\\assets\\pdf-test.pdf";
         private const string ZipFilePath = "D:\\SideProjects\\TestApp\\assets\\test.zip";
-        private const string UploadFilePath = "D:\\SideProjects\\TestApp\\assets\\upload-test-file.txt";
+        private const string UploadFilePath = "D:\\SideProjects\\StratusSDK\\TestApp\\assets\\upload-test-file.txt";
 
         //private const string FilePath = "path/to/file";
         public string? TaskId { get; set; }
@@ -344,11 +345,12 @@ namespace StratusSDK.Samples
         [EndpointSummary("Upload File as Stream")]
         public async Task<IActionResult> UploadFileAsStream()
         {
-            var stream = System.IO.File.OpenRead(UploadFilePath);
             var objectKey = "pdf-test-stream-2.pdf";
+            var bytes = await System.IO.File.ReadAllBytesAsync(UploadFilePath);
             var response = await stratus.UploadAsync(
                 objectKey,
-                UploadContent.FromStream(stream));
+                UploadContent.FromStream(
+                    () => new MemoryStream(bytes)));
             return Ok(response);
         }
     }

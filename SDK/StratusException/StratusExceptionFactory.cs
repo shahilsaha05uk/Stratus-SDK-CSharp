@@ -12,9 +12,8 @@ namespace StratusSDK
         {
             var response = stratusResponse.HttpResponse;
 
-            var rawResponse = response.Content is not null
-                ? await response.Content.ReadAsStringAsync(ct)
-                : string.Empty;
+            var rawResponse = await SafeReadContentAsync(response.Content, ct)
+                ?? string.Empty;
 
             return await CreateAsync(stratusResponse, rawResponse, message, ct);
         }
@@ -28,13 +27,8 @@ namespace StratusSDK
             var request = stratusResponse.HttpRequest;
 
             var errorInfo = JsonUtil.TryExtractError(rawResponse);
-            var requestBody = request.Content is null
-                ? null
-                : await request.Content.ReadAsStringAsync(ct);
-
-            var responseBody = response.Content is null
-                ? null
-                : await response.Content.ReadAsStringAsync(ct);
+            var requestBody = await SafeReadContentAsync(request.Content, ct);
+            var responseBody = await SafeReadContentAsync(response.Content, ct);
 
             var uri = request.RequestUri;
             var path = uri?.AbsolutePath;
@@ -64,6 +58,22 @@ namespace StratusSDK
             if (!string.IsNullOrWhiteSpace(rawResponse))
                 return JsonUtil.PrettyPrint(rawResponse);
             return $"Request failed with status code {(int)statusCode} ({statusCode}).";
+        }
+
+        private static async Task<string?> SafeReadContentAsync(
+            HttpContent? content,
+            CancellationToken ct)
+        {
+            if (content is null) return null;
+
+            try
+            {
+                return await content.ReadAsStringAsync(ct);
+            }
+            catch (ObjectDisposedException)
+            {
+                return null;
+            }
         }
     }
 }

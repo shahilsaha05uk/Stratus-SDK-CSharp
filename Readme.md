@@ -420,10 +420,10 @@ public class StorageController : ControllerBase
 
 ## Samples
 
-Ready-to-use examples are available in two places:
+Ready-to-use examples are available as separate projects in the solution:
 
-- **[`Samples/StratusNonDISample.cs`](Samples/StratusNonDISample.cs)** — A static class showing how to use the SDK **without a DI container**, using `StratusSDKFactory.Create()`.
-- **[`TestApp/`](https://github.com/shahilsaha05uk/Stratus-SDK-CSharp/tree/main/TestApp)** — A companion ASP.NET Core project with a full **dependency injection** controller (`StratusController.cs`) wired up with Scalar/OpenAPI for interactive testing.
+- **[`TestApp/`](https://github.com/shahilsaha05uk/Stratus-SDK-CSharp/tree/main/TestApp)** (`DIExampleApp`) — An ASP.NET Core project demonstrating **dependency injection** setup with a full controller (`StratusController.cs`) wired up with Scalar/OpenAPI for interactive testing.
+- **[`NonDIExampleApp/`](https://github.com/shahilsaha05uk/Stratus-SDK-CSharp/tree/main/NonDIExampleApp)** — A console application demonstrating how to use the SDK **without a DI container**, using `StratusSDKFactory.Create()`.
 
 Feel free to copy these into your own project as a starting point.
 

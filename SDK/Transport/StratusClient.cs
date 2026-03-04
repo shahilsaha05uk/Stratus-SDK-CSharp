@@ -8,10 +8,10 @@ namespace StratusSDK
 
         public async Task<StratusClientResponse> SendAsync(
             StratusRequest request,
-            HttpCompletionOption completionOption = HttpCompletionOption.ResponseContentRead,
+            HttpCompletionOption completionOption = HttpCompletionOption.ResponseHeadersRead,
             CancellationToken ct = default)
         {
-            using var message = CreateMessage(request);
+            var message = CreateMessage(request);
             var response = await http.SendAsync(message, completionOption, ct);
             return new()
             {

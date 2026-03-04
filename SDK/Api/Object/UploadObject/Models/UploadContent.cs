@@ -10,9 +10,9 @@ namespace StratusSDK
             => new FilePathContent(path, contentType);
 
         public static IStratusHttpContent FromStream(
-            Stream stream,
+            Func<Stream> streamFactory,
             EContentType contentType = EContentType.ApplicationOctetStream)
-            => new StreamUploadContent(stream, contentType);
+            => new StreamUploadContent(streamFactory, contentType);
 
         public static IStratusHttpContent FromBytes(
             byte[] bytes,

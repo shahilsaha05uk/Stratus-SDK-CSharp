@@ -11,19 +11,15 @@
 //
 // ============================================================================
 
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
 namespace StratusSDK.Samples
 {
-    public static class StratusNonDISample
+    public class StratusNonDISample
     {
         private const string PdfFilePath = "D:\\SideProjects\\TestApp\\assets\\pdf-test.pdf";
         private const string ZipFilePath = "D:\\SideProjects\\TestApp\\assets\\test.zip";
         private const string UploadFilePath = "D:\\SideProjects\\TestApp\\assets\\upload-test-file.txt";
 
-
-        private static IStratusSDK CreateSDK()
+        private IStratusSDK CreateSDK()
         {
             var options = new StratusOptions
             {
@@ -41,28 +37,28 @@ namespace StratusSDK.Samples
             return StratusSDKFactory.Create(options);
         }
 
-        public static async Task CopyObjectAsync()
+        public async Task CopyObjectAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.CopyObjectAsync("source-file.pdf", "destination/source-file.pdf");
             Console.WriteLine(response);
         }
 
-        public static async Task CreateBucketSignatureAsync()
+        public async Task CreateBucketSignatureAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.CreateBucketSignatureAsync();
             Console.WriteLine(response);
         }
 
-        public static async Task DeleteObjectAsync()
+        public async Task DeleteObjectAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.DeleteObjectAsync("file-to-delete.pdf");
             Console.WriteLine(response);
         }
 
-        public static async Task DeleteObjectsAsync()
+        public async Task DeleteObjectsAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.DeleteObjectsAsync(
@@ -73,14 +69,14 @@ namespace StratusSDK.Samples
             Console.WriteLine(response);
         }
 
-        public static async Task DeletePathAsync()
+        public async Task DeletePathAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.DeletePathAsync("folder-to-delete/");
             Console.WriteLine(response);
         }
 
-        public static async Task DownloadObjectAsync()
+        public async Task DownloadObjectAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.DownloadObjectAsync(new DownloadObjectRequest
@@ -99,56 +95,56 @@ namespace StratusSDK.Samples
             }
         }
 
-        public static async Task ExistsBucketAsync()
+        public async Task ExistsBucketAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.ExistsBucketAsync();
             Console.WriteLine($"Bucket exists: {response}");
         }
 
-        public static async Task ExistsObjectAsync()
+        public async Task ExistsObjectAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.ExistsObjectAsync("pdf-test.pdf");
             Console.WriteLine($"Object exists: {response}");
         }
 
-        public static async Task ExtractZipObjectAsync()
+        public async Task ExtractZipObjectAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.ExtractZipObjectAsync("archive.zip", "extracted/");
             Console.WriteLine($"Extraction task ID: {response.Data.TaskId}");
         }
 
-        public static async Task GetBucketAsync()
+        public async Task GetBucketAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.GetBucketAsync();
             Console.WriteLine(response);
         }
 
-        public static async Task GetExtractionStatusAsync()
+        public async Task GetExtractionStatusAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.GetExtractionStatusAsync("your-task-id");
             Console.WriteLine($"Extraction status: {response.Data.Status}");
         }
 
-        public static async Task GetObjectAsync()
+        public async Task GetObjectAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.GetObjectAsync("pdf-test.pdf");
             Console.WriteLine(response);
         }
 
-        public static async Task GetObjectVersionsAsync()
+        public async Task GetObjectVersionsAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.GetObjectVersionsAsync("pdf-test.pdf");
             Console.WriteLine(response);
         }
 
-        public static async Task GetPresignedDownloadUrlAsync()
+        public async Task GetPresignedDownloadUrlAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.GetPresignedURLAsync(
@@ -161,7 +157,7 @@ namespace StratusSDK.Samples
             Console.WriteLine($"Download URL: {response}");
         }
 
-        public static async Task GetPresignedUploadUrlAsync()
+        public async Task GetPresignedUploadUrlAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.GetPresignedURLAsync(
@@ -174,21 +170,21 @@ namespace StratusSDK.Samples
             Console.WriteLine($"Upload URL: {response}");
         }
 
-        public static async Task ListAllBucketsAsync()
+        public async Task ListAllBucketsAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.ListAllBucketsAsync();
             Console.WriteLine(response);
         }
 
-        public static async Task ListAllObjectsAsync()
+        public async Task ListAllObjectsAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.ListAllObjectsAsync();
             Console.WriteLine(response);
         }
 
-        public static async Task PutObjectMetadataAsync()
+        public async Task PutObjectMetadataAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.PutObjectMetadataAsync("pdf-test.pdf", new PutObjectMetadataRequestBody
@@ -202,14 +198,14 @@ namespace StratusSDK.Samples
             Console.WriteLine(response);
         }
 
-        public static async Task RenameObjectAsync()
+        public async Task RenameObjectAsync()
         {
             var stratus = CreateSDK();
             var response = await stratus.RenameObjectAsync("old-name.pdf", "new-name.pdf");
             Console.WriteLine(response);
         }
 
-        public static async Task UploadByFilePath()
+        public async Task UploadByFilePath()
         {
             var stratus = CreateSDK();
 
@@ -221,7 +217,7 @@ namespace StratusSDK.Samples
                 EContentType.ApplicationPdf);
         }
 
-        public static async Task UploadByString()
+        public async Task UploadByString()
         {
             var stratus = CreateSDK();
 
@@ -232,7 +228,7 @@ namespace StratusSDK.Samples
                 UploadContent.FromString("Hello World!!"));
         }
 
-        public static async Task UploadZipObject()
+        public async Task UploadZipObject()
         {
             var stratus = CreateSDK();
             var objectKey = "test.zip";
@@ -243,14 +239,13 @@ namespace StratusSDK.Samples
                 EContentType.ApplicationZip);
         }
 
-        public static async Task UploadFileAsStream()
+        public async Task UploadFileAsStream()
         {
             var stratus = CreateSDK();
-            var stream = System.IO.File.OpenRead(UploadFilePath);
             var objectKey = "pdf-test-2.pdf";
             var response = await stratus.UploadAsync(
                 objectKey,
-                UploadContent.FromStream(stream));
+                UploadContent.FromStream(() => System.IO.File.OpenRead(UploadFilePath)));
         }
     }
 }

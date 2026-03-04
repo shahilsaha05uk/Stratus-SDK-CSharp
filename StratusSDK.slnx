@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="NonDIExampleApp/NonDIExampleApp.csproj" Id="e988498c-054f-477a-81d7-1e67216d198e" />
   <Project Path="SDK/StratusSDK.csproj" />
-  <Project Path="TestApp/TestApp.csproj" />
+  <Project Path="TestApp/DIExampleApp.csproj" />
 </Solution>

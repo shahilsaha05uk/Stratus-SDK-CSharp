@@ -6,7 +6,7 @@ namespace StratusSDK
         StratusClient client) :
         BaseOperation<ExistsObjectRequest, ExistsObjectResponse>(client)
     {
-        protected override IResponseStrategy<ExistsObjectResponse>? ResponseStrategy 
+        protected override IResponseStrategy<ExistsObjectResponse>? ResponseStrategy
             => new ExistsObjectResponseStrategy();
         protected override StratusRequest BuildRequest(ExistsObjectRequest request)
             => new()

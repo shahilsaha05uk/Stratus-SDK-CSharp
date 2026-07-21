@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Options;
 using System.Text.Json;
 
 namespace StratusSDK
@@ -18,11 +17,11 @@ namespace StratusSDK
         {
             var raw = await response.Content.ReadAsStringAsync(ct);
             if (string.IsNullOrWhiteSpace(raw)) return default;
+
             return JsonSerializer.Deserialize<T>(
                 raw,
                 options);
         }
-
 
         public static string PrettyPrint(string json)
         {
@@ -43,7 +42,7 @@ namespace StratusSDK
             }
         }
 
-        public static StratusErrorInfo? TryExtractError(string? json)
+        public static StratusErrorPayload? TryExtractError(string? json)
         {
             if (string.IsNullOrWhiteSpace(json))
                 return null;
@@ -67,7 +66,7 @@ namespace StratusSDK
                 if (code == null && message == null)
                     return null;
 
-                return new StratusErrorInfo(code, message);
+                return new StratusErrorPayload(code, message);
             }
             catch
             {
@@ -76,7 +75,7 @@ namespace StratusSDK
         }
     }
 
-    public sealed record StratusErrorInfo(
+    public sealed record StratusErrorPayload(
     string? ErrorCode,
     string? Message);
 }

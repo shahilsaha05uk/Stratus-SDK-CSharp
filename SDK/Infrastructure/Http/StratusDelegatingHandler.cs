@@ -6,14 +6,13 @@ namespace StratusSDK
     /// <summary>
     /// This class will handle adding all the headers 
     /// to the request for authentication and 
-    /// other necessary information like org id, environment etc.
+    /// other necessary Payloadrmation like org id, environment etc.
     /// </summary>
     internal sealed class StratusDelegatingHandler(
         StratusOptions options,
         ITokenManager tokenManager) :
         DelegatingHandler
     {
-
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request,
             CancellationToken ct)
@@ -26,6 +25,7 @@ namespace StratusSDK
             if (requireAuth)
             {
                 var token = await tokenManager.GetToken(ct);
+
                 request.Headers.Authorization =
                    new AuthenticationHeaderValue(
                        "Bearer",
@@ -38,6 +38,7 @@ namespace StratusSDK
                 request.Headers.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
             }
+
             // Org header toggle
             var includeOrgId = request.Options.TryGetValue(
                 StratusRequestOptions.IncludeOrgId,

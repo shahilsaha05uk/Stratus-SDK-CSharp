@@ -4,7 +4,7 @@ namespace StratusSDK
 {
     internal sealed class ManualResolver(StratusOptions options) : OperationResolver()
     {
-        private readonly IServiceProvider provider = 
+        readonly IServiceProvider provider =
             new ServiceCollection()
                 .AddStratusExtensions(options)
                 .BuildServiceProvider();

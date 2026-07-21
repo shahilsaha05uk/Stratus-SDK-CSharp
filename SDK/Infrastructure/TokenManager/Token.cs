@@ -7,12 +7,12 @@
         public string Scope { get; private set; } = scope;
         public DateTime LastFetched { get; private set; } = DateTime.UtcNow;
 
-        //public void Log()
-        //{
+        // public void Log()
+        // {
         //    Console.WriteLine($"AccessToken: {AccessToken}");
         //    Console.WriteLine($"ExpiresIn: {ExpiresIn} seconds");
         //    Console.WriteLine($"Scope: {Scope}");
         //    Console.WriteLine($"LastFetched: {LastFetched:u}");
-        //}
+        // }
     }
 }

@@ -24,10 +24,9 @@ namespace StratusSDK
         /// </summary>
         /// <value>The bucket name as a string.</value>
         public string BucketName { get; set; } = string.Empty;
-        private string DevBucketName => $"{BucketName}-development";
-        private string BucketUrl => $"https://{BucketName}.{BucketDomains.GetDomain(Region)}";
-        private string DevBucketUrl => $"https://{DevBucketName}.{BucketDomains.GetDomain(Region)}";
-
+        string DevBucketName => $"{BucketName}-development";
+        string BucketUrl => $"https://{BucketName}.{BucketDomains.GetDomain(Region)}";
+        string DevBucketUrl => $"https://{DevBucketName}.{BucketDomains.GetDomain(Region)}";
 
         /// <summary>
         /// Gets or sets the Zoho OAuth client ID.

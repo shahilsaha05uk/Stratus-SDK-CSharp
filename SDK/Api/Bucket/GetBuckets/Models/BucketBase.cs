@@ -15,10 +15,10 @@ namespace StratusSDK
         public ProjectDetails ProjectDetails { get; init; } = default!;
 
         [JsonPropertyName(JsonKeys.CreatedBy)]
-        public UserInfo CreatedBy { get; init; } = default!;
+        public UserPayload CreatedBy { get; init; } = default!;
 
         [JsonPropertyName(JsonKeys.ModifiedBy)]
-        public UserInfo ModifiedBy { get; init; } = default!;
+        public UserPayload ModifiedBy { get; init; } = default!;
 
         [JsonPropertyName(JsonKeys.CreatedTime)]
         public string CreatedTimeRaw { get; init; } = default!;
@@ -37,7 +37,7 @@ namespace StratusSDK
         [JsonPropertyName(JsonKeys.BucketMeta)]
         public BucketMeta Meta { get; init; } = default!;
 
-        private static DateTime ParseZohoDate(string raw) =>
+        static DateTime ParseZohoDate(string raw) =>
             DateTime.ParseExact(
                 raw,
                 "MMM dd, yyyy hh:mm tt",

@@ -7,6 +7,7 @@ namespace StratusSDK
         public async Task<StratusException> HandleError(StratusClientResponse stratusResponse)
         {
             var statusCode = stratusResponse.HttpResponse.StatusCode;
+
             return await StratusExceptionFactory.CreateAsync(
                 stratusResponse,
                 message: statusCode switch

@@ -6,7 +6,7 @@ namespace StratusSDK
         DownloadObjectQueryOptions queryOptions) :
         BaseOperation<DownloadObjectRequest, DownloadObjectResponse>(client)
     {
-        protected override IResponseStrategy<DownloadObjectResponse>? ResponseStrategy 
+        protected override IResponseStrategy<DownloadObjectResponse>? ResponseStrategy
             => new DownloadObjectResponseStrategy();
         protected override StratusRequest BuildRequest(DownloadObjectRequest request)
             => new()

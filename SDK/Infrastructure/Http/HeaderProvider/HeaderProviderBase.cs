@@ -11,14 +11,8 @@ namespace StratusSDK
             AddRequired(Headers, key, value?.ToString(), message);
         }
 
-        protected void AddOptional(string key, object? value)
-        {
-            base.AddOptional(Headers, key, value);
-        }
+        protected void AddOptional(string key, object? value) => base.AddOptional(Headers, key, value);
 
-        protected void AddIf(string key, object? value)
-        {
-            AddIf(Headers, key, value);
-        }
+        protected void AddIf(string key, object? value) => AddIf(Headers, key, value);
     }
 }

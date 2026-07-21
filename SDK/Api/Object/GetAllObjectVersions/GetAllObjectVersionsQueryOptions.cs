@@ -2,7 +2,7 @@
 
 namespace StratusSDK
 {
-    public sealed class GetAllObjectVersionsQueryOptions(StratusOptions options) : 
+    public sealed class GetAllObjectVersionsQueryOptions(StratusOptions options) :
         QueryProviderBase<GetAllObjectVersionsRequest>
     {
         public override Dictionary<string, string?> ToQueries(GetAllObjectVersionsRequest data)

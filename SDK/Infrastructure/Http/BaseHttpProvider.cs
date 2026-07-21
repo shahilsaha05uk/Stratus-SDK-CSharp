@@ -30,6 +30,7 @@ namespace StratusSDK
                     message ?? $"Missing required query parameter '{key}'.");
 
             var s = ConvertToString(value);
+
             if (string.IsNullOrWhiteSpace(s))
                 throw new StratusException(
                     HttpStatusCode.BadRequest,
@@ -37,6 +38,7 @@ namespace StratusSDK
 
             items[key] = s;
         }
+
         protected static void AddIf(
             Dictionary<string, string?> items,
             string key,
@@ -63,6 +65,5 @@ namespace StratusSDK
 
                 _ => value.ToString()!
             };
-
     }
 }

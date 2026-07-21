@@ -5,12 +5,13 @@ namespace StratusSDK
 {
     public sealed class JsonStratusContent<T> : IStratusHttpContent
     {
-        private readonly T value;
-        private readonly JsonSerializerOptions options;
+        readonly T value;
+        readonly JsonSerializerOptions options;
 
         public JsonStratusContent(T value, JsonSerializerOptions? options = null)
         {
             this.value = value;
+
             this.options = options ?? new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase

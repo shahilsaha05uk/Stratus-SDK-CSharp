@@ -6,7 +6,7 @@ namespace StratusSDK
         ExistsBucketQueryOptions queryOptions) :
         BaseOperation<ExistsBucketResponse>(client)
     {
-        protected override IResponseStrategy<ExistsBucketResponse>? ResponseStrategy 
+        protected override IResponseStrategy<ExistsBucketResponse>? ResponseStrategy
             => new ExistsBucketResponseStrategy();
         protected override StratusRequest BuildRequest()
             => new()

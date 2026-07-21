@@ -1,4 +1,3 @@
-
 using System.Net;
 
 namespace StratusSDK
@@ -8,6 +7,7 @@ namespace StratusSDK
         public async Task<StratusException> HandleError(StratusClientResponse stratusResponse)
         {
             var statusCode = stratusResponse.HttpResponse.StatusCode;
+
             return await StratusExceptionFactory.CreateAsync(
                 stratusResponse,
                 message: statusCode switch
@@ -21,6 +21,7 @@ namespace StratusSDK
         public async Task<DownloadObjectResponse> HandleSuccessAsync(HttpResponseMessage response)
         {
             var data = await response.Content.ReadAsByteArrayAsync();
+
             return new DownloadObjectResponse
             {
                 Success = true,

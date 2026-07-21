@@ -78,5 +78,8 @@ namespace StratusSDK
             EContentType contentType = EContentType.TextPlain,
             UploadObjectRequestOptions? options = null,
             CancellationToken ct = default);
+
+        // Helper methods
+        public string GetObjectURL(string objectKey);
     }
 }

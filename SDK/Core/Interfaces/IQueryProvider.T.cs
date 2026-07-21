@@ -4,5 +4,4 @@ namespace StratusSDK
     {
         Dictionary<string, string?> ToQueries(T data);
     }
-
 }

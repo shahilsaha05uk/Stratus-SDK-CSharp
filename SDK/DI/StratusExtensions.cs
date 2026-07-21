@@ -11,6 +11,7 @@ namespace StratusSDK
         {
             // Register the options
             services.Configure(configure);
+
             services.AddSingleton(sp =>
                 sp.GetRequiredService<IOptions<StratusOptions>>().Value);
 
@@ -28,7 +29,7 @@ namespace StratusSDK
             return services;
         }
 
-        private static void RegisterCore(IServiceCollection services)
+        static void RegisterCore(IServiceCollection services)
         {
             // Delegating Handler
             services.AddTransient<StratusDelegatingHandler>();
@@ -39,7 +40,7 @@ namespace StratusSDK
                 var options = sp.GetRequiredService<StratusOptions>();
                 client.BaseAddress = new Uri(options.BaseUrl);
             })
-            .AddHttpMessageHandler<StratusDelegatingHandler>();
+                .AddHttpMessageHandler<StratusDelegatingHandler>();
 
             // SDK
             services.AddScoped<IStratusSDK, StratusSDK>();

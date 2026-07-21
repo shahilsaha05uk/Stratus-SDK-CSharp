@@ -1,5 +1,3 @@
-
-
 namespace StratusSDK
 {
     public sealed class DownloadObjectQueryOptions : QueryProviderBase<DownloadObjectRequest>
@@ -13,7 +11,8 @@ namespace StratusSDK
         public override Dictionary<string, string?> ToQueries(DownloadObjectRequest data)
         {
             AddOptional(QueryKeys.VersionId, VersionId);
-            if(data.OverridingQueryOptions is not null)
+
+            if (data.OverridingQueryOptions is not null)
             {
                 var query = data.OverridingQueryOptions;
                 AddOptional(QueryKeys.ResponseContentType, query.ResponseContentType?.ToMimeString());
@@ -21,6 +20,7 @@ namespace StratusSDK
                 AddOptional(QueryKeys.ResponseContentDisposition, query.ResponseContentDisposition);
                 AddOptional(QueryKeys.ResponseCacheControl, query.ResponseCacheControl);
             }
+
             return base.ToQueries(data);
         }
     }

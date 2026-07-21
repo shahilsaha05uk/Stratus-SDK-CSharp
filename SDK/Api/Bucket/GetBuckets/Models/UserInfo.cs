@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace StratusSDK
 {
-    public sealed class UserInfo
+    public sealed class UserPayload
     {
         [JsonPropertyName(JsonKeys.Zuid)]
         public long Zuid { get; init; }

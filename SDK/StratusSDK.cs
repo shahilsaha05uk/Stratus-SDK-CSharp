@@ -1,4 +1,3 @@
-
 namespace StratusSDK
 {
     /// <summary>
@@ -12,26 +11,26 @@ namespace StratusSDK
     /// </remarks>
     /// <seealso cref="IStratusSDK"/>
     /// <seealso cref="StratusOptions"/>
-    public sealed class StratusSDK(OperationResolver resolver) : IStratusSDK
+    public sealed class StratusSDK(OperationResolver resolver, StratusOptions options) : IStratusSDK
     {
         /// <summary>
-            /// Copies an object from one location to another within the bucket.
-            /// </summary>
-            /// <param name="objectKey">The source object key to copy from.</param>
-            /// <param name="destination">The destination key where the object will be copied to.</param>
-            /// <param name="ct">Cancellation token to cancel the operation.</param>
-            /// <returns>A <see cref="Task{TResult}"/> representing the asynchronous operation with <see cref="CopyObjectResponse"/>.</returns>
-            /// <exception cref="StratusException">Thrown when the API request fails.</exception>
-            public Task<CopyObjectResponse> CopyObjectAsync(
-            string objectKey,
-            string destination,
-            CancellationToken ct = default)
-            => Op<CopyObjectOperation>().ExecuteAsync(
-                new()
-                {
-                    ObjectKey = new ObjectKey(objectKey),
-                    Destination = destination,
-                }, ct);
+        /// Copies an object from one location to another within the bucket.
+        /// </summary>
+        /// <param name="objectKey">The source object key to copy from.</param>
+        /// <param name="destination">The destination key where the object will be copied to.</param>
+        /// <param name="ct">Cancellation token to cancel the operation.</param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the asynchronous operation with <see cref="CopyObjectResponse"/>.</returns>
+        /// <exception cref="StratusException">Thrown when the API request fails.</exception>
+        public Task<CopyObjectResponse> CopyObjectAsync(
+        string objectKey,
+        string destination,
+        CancellationToken ct = default)
+        => Op<CopyObjectOperation>().ExecuteAsync(
+            new()
+            {
+                ObjectKey = new ObjectKey(objectKey),
+                Destination = destination,
+            }, ct);
 
         /// <summary>
         /// Creates a signature for the bucket to enable secure access.
@@ -69,8 +68,8 @@ namespace StratusSDK
             }, ct);
 
         public Task<DeleteObjectResponse> DeleteObjectsAsync(
-            List<DeleteObjectRequestData> objectKeys, 
-            int? ttlInSeconds = null, 
+            List<DeleteObjectRequestData> objectKeys,
+            int? ttlInSeconds = null,
             CancellationToken ct = default)
             => Op<DeleteObjectOperation>().ExecuteAsync(new()
             {
@@ -100,7 +99,7 @@ namespace StratusSDK
         /// <summary>
         /// Downloads an object from the bucket.
         /// </summary>
-        /// <param name="request">The <see cref="DownloadObjectRequest"/> containing object key and optional version information.</param>
+        /// <param name="request">The <see cref="DownloadObjectRequest"/> containing object key and optional version Payloadrmation.</param>
         /// <param name="ct">Cancellation token to cancel the operation.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the asynchronous operation with <see cref="DownloadObjectResponse"/> containing object data.</returns>
         /// <exception cref="StratusException">Thrown when the API request fails.</exception>
@@ -157,7 +156,7 @@ namespace StratusSDK
                 }, ct);
 
         /// <summary>
-        /// Retrieves bucket information and metadata.
+        /// Retrieves bucket Payloadrmation and metadata.
         /// </summary>
         /// <param name="ct">Cancellation token to cancel the operation.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the asynchronous operation with <see cref="GetBucketResponse"/>.</returns>
@@ -176,13 +175,13 @@ namespace StratusSDK
             string taskId,
             CancellationToken ct = default)
             => Op<GetStatusOfZipExtractOperation>().ExecuteAsync(
-                new() 
-                { 
+                new()
+                {
                     TaskId = taskId,
                 }, ct);
 
         /// <summary>
-        /// Retrieves metadata and information about a specific object.
+        /// Retrieves metadata and Payloadrmation about a specific object.
         /// </summary>
         /// <param name="objectKey">The object key to retrieve metadata for.</param>
         /// <param name="versionId">Optional version ID to get metadata for a specific version.</param>
@@ -285,7 +284,7 @@ namespace StratusSDK
         /// <exception cref="StratusException">Thrown when the API request fails.</exception>
         public Task<PutObjectMetadataResponse> PutObjectMetadataAsync(
             string objectKey,
-            PutObjectMetadataRequestBody content, 
+            PutObjectMetadataRequestBody content,
             CancellationToken ct = default)
             => Op<PutObjectMetadataOperation>().ExecuteAsync(new()
             {
@@ -313,10 +312,10 @@ namespace StratusSDK
                 }, ct);
 
         public Task<UploadObjectResponse> UploadAsync(
-            string objectKey, 
-            IStratusHttpContent content, 
-            EContentType contentType = EContentType.TextPlain, 
-            UploadObjectRequestOptions? options = null, 
+            string objectKey,
+            IStratusHttpContent content,
+            EContentType contentType = EContentType.TextPlain,
+            UploadObjectRequestOptions? options = null,
             CancellationToken ct = default)
             => Op<UploadObjectOperation>().ExecuteAsync(new()
             {
@@ -326,8 +325,9 @@ namespace StratusSDK
                 VersionId = options?.VersionId,
             }, ct);
 
+        public string GetObjectURL(string objectKey)
+            => $"{options.GetBucketUrl()}/{objectKey}";
 
         T Op<T>() where T : BaseOperation => resolver.Resolve<T>();
-
     }
 }

@@ -1,6 +1,5 @@
 namespace StratusSDK
 {
-
     public abstract class BaseUploadObjectRequest
     {
         /// <summary>

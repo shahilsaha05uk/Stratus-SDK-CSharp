@@ -29,6 +29,6 @@ namespace StratusSDK
         /// </code>
         /// </example>
         public static IStratusSDK Create(StratusOptions options)
-            => new StratusSDK(new ManualResolver(options));
+            => new StratusSDK(new ManualResolver(options), options);
     }
 }

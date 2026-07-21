@@ -16,6 +16,7 @@ namespace StratusSDK
                 request,
                 completionOption,
                 ct);
+
         protected async Task<TResponse> HandleSuccess<TResponse>(
             HttpResponseMessage response,
             IResponseStrategy<TResponse>? strategy,

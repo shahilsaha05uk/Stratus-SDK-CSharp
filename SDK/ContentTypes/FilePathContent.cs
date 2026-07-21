@@ -4,8 +4,8 @@ namespace StratusSDK
 {
     public sealed class FilePathContent : IStratusHttpContent
     {
-        private readonly string path;
-        private readonly string contentType;
+        readonly string path;
+        readonly string contentType;
 
         public FilePathContent(string path, EContentType contentType)
         {

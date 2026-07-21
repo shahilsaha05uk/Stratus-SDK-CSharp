@@ -18,5 +18,4 @@ namespace StratusSDK
             ? domain
             : throw new ArgumentException($"Unsupported region: {region}");
     }
-
 }

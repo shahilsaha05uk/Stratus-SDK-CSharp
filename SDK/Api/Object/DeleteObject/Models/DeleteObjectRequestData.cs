@@ -5,7 +5,7 @@ namespace StratusSDK
     public sealed class DeleteObjectRequestData
     {
         /// <summary>
-        /// Required: This JSON key will contain the required object’s name that needs to be deleted.
+        /// Required: This JSON key will contain the required objectâ€™s name that needs to be deleted.
         /// </summary>
         [JsonPropertyName(JsonKeys.Key)]
         public required string Key { get; set; }

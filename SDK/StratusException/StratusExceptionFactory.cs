@@ -17,6 +17,7 @@ namespace StratusSDK
 
             return await CreateAsync(stratusResponse, rawResponse, message, ct);
         }
+
         public static async Task<StratusException> CreateAsync(
             StratusClientResponse stratusResponse,
             string rawResponse,
@@ -26,13 +27,14 @@ namespace StratusSDK
             var response = stratusResponse.HttpResponse;
             var request = stratusResponse.HttpRequest;
 
-            var errorInfo = JsonUtil.TryExtractError(rawResponse);
+            var errorPayload = JsonUtil.TryExtractError(rawResponse);
             var requestBody = await SafeReadContentAsync(request.Content, ct);
             var responseBody = await SafeReadContentAsync(response.Content, ct);
 
             var uri = request.RequestUri;
             var path = uri?.AbsolutePath;
-            var queryParams = uri is not null 
+
+            var queryParams = uri is not null
                 ? QueryHelpers.ParseQuery(uri.Query)
                     .ToDictionary(k => k.Key, v => v.Value.ToString())
                 : null;
@@ -44,23 +46,24 @@ namespace StratusSDK
                 requestUrl: request?.RequestUri?.ToString(),
                 requestBody: requestBody,
                 responseBody: responseBody,
-                errorCode: errorInfo?.ErrorCode,
+                errorCode: errorPayload?.ErrorCode,
                 queryParams: queryParams);
         }
 
-        private static string MakeMessage(
-            string rawResponse, 
+        static string MakeMessage(
+            string rawResponse,
             HttpStatusCode statusCode,
             string? message = null)
         {
-            if(message is not null) return message;
+            if (message is not null) return message;
 
             if (!string.IsNullOrWhiteSpace(rawResponse))
                 return JsonUtil.PrettyPrint(rawResponse);
+
             return $"Request failed with status code {(int)statusCode} ({statusCode}).";
         }
 
-        private static async Task<string?> SafeReadContentAsync(
+        static async Task<string?> SafeReadContentAsync(
             HttpContent? content,
             CancellationToken ct)
         {

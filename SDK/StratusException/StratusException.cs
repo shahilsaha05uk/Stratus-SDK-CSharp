@@ -2,7 +2,6 @@
 
 namespace StratusSDK
 {
-
     public sealed class StratusException : Exception
     {
         public HttpStatusCode StatusCode { get; }

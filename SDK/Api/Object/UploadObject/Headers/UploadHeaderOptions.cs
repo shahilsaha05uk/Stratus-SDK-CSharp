@@ -1,5 +1,3 @@
-
-
 namespace StratusSDK
 {
     /// <summary>
@@ -100,7 +98,7 @@ namespace StratusSDK
         /// </value>
         /// <remarks>
         /// <para>
-        /// Use metadata to store custom information about the object such as tags,
+        /// Use metadata to store custom Payloadrmation about the object such as tags,
         /// categories, original filename, or any application-specific data.
         /// </para>
         /// <para>
@@ -134,6 +132,7 @@ namespace StratusSDK
                 Headers[HeaderKeys.UserMeta] =
                     string.Join(";", Metadata.Select(kvp => $"{kvp.Key}={kvp.Value}"));
             }
+
             return base.ToHeaders();
         }
     }

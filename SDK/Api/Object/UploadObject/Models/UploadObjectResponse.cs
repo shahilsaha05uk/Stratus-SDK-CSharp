@@ -5,6 +5,6 @@ namespace StratusSDK
     {
         public required int StatusCode { get; init; }
         public required bool Success { get; init; }
-        public required  string Message { get; init; }
+        public required string Message { get; init; }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace StratusSDK
 {
-    public sealed class GetStatusOfZipExtractQueryOptions(StratusOptions options) : 
+    public sealed class GetStatusOfZipExtractQueryOptions(StratusOptions options) :
         QueryProviderBase<GetStatusOfZipExtractRequest>
     {
         public override Dictionary<string, string?> ToQueries(GetStatusOfZipExtractRequest data)

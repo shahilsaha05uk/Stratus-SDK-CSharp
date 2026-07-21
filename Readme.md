@@ -31,10 +31,10 @@ A comprehensive .NET SDK for interacting with Zoho Catalyst Stratus cloud storag
   - [List Objects with Pagination](#list-objects-with-pagination)
   - [Rename Objects](#rename-objects)
   - [Upload](#upload)
-- [Data Models Reference](#data-models-reference)
+- [Data s Reference](#data-s-reference)
   - [Configuration](#configuration-1)
     - [StratusOptions](#stratusoptions)
-  - [Request Models](#request-models)
+  - [Request s](#request-s)
     - [DeleteObjectRequestData](#deleteobjectrequestdata)
     - [DownloadHeaderOptions](#downloadheaderoptions)
     - [DownloadObjectRequest](#downloadobjectrequest)
@@ -43,7 +43,7 @@ A comprehensive .NET SDK for interacting with Zoho Catalyst Stratus cloud storag
     - [UploadContent](#uploadcontent)
     - [UploadHeaderOptions](#uploadheaderoptions)
     - [UploadObjectRequestOptions](#uploadobjectrequest-options)
-  - [Response Models](#response-models-1)
+  - [Response s](#response-s-1)
     - [Bucket](#bucket)
     - [BucketObject](#bucketobject)
     - [CreateBucketSignatureData](#createbucketsignaturedata)
@@ -74,7 +74,7 @@ A comprehensive .NET SDK for interacting with Zoho Catalyst Stratus cloud storag
     - [ExistsObjectAsync](#existsobjectasync)
     - [RenameObjectAsync](#renameobjectasync)
     - [UploadAsync](#uploadasync)
-  - [Metadata & Information](#metadata--information)
+  - [Metadata & Payloadrmation](#metadata--Payloadrmation)
     - [GetObjectAsync](#getobjectasync)
     - [GetObjectVersionsAsync](#getobjectversionsasync)
     - [ListAllObjectsAsync](#listallobjectsasync)
@@ -921,9 +921,9 @@ public class DocumentsController : ControllerBase
 }
 ```
 
-## Data Models Reference
+## Data s Reference
 
-This section provides detailed information about all data models, request/response classes, enums, and configuration options used in the SDK.
+This section provides detailed Payloadrmation about all data s, request/response classes, enums, and configuration options used in the SDK.
 
 ### Configuration
 
@@ -960,7 +960,7 @@ var options = new StratusOptions
 };
 ```
 
-### Request Models
+### Request s
 
 #### DeleteObjectRequestData
 
@@ -982,7 +982,7 @@ Configuration options for download operations.
 
 #### DownloadObjectRequest
 
-Request model for downloading objects from storage.
+Request  for downloading objects from storage.
 
 | Property | Type | Required | Description | Example |
 |----------|------|----------|-------------|---------|
@@ -1058,7 +1058,7 @@ Optional settings for upload operations.
 | `HeaderOptions` | `UploadHeaderOptions?` | No | Upload configuration options | See UploadHeaderOptions above |
 | `VersionId` | `string?` | No | Version ID for versioned buckets | `"01hh9hkfdf07y8pnpbwtkt8cf7"` |
 
-### Response Models
+### Response s
 
 #### Bucket
 
@@ -1067,10 +1067,10 @@ Represents a Stratus bucket with metadata.
 | Property | Type | Description |
 |----------|------|-------------|
 | `Name` | `string` | Bucket name |
-| `ProjectDetails` | `ProjectDetails` | Associated project information |
-| `CreatedBy` | `ModifiedData` | Creator information |
+| `ProjectDetails` | `ProjectDetails` | Associated project Payloadrmation |
+| `CreatedBy` | `ModifiedData` | Creator Payloadrmation |
 | `CreatedTime` | `DateTime` | Creation timestamp |
-| `ModifiedBy` | `ModifiedData` | Last modifier information |
+| `ModifiedBy` | `ModifiedData` | Last modifier Payloadrmation |
 | `ModifiedTime` | `DateTime` | Last modification timestamp |
 | `Meta` | `BucketMeta` | Bucket metadata and settings |
 | `Url` | `string` | Bucket URL |
@@ -1306,7 +1306,7 @@ Main SDK interface defining all operations.
 | `ExistsBucketAsync()` | `Task<ExistsBucketResponse>` | Check bucket existence |
 | `ExistsObjectAsync()` | `Task<ExistsObjectResponse>` | Check object existence |
 | `ExtractZipObjectAsync()` | `Task<ExtractZipObjectResponse>` | Extract ZIP file |
-| `GetBucketAsync()` | `Task<GetBucketResponse>` | Get bucket information |
+| `GetBucketAsync()` | `Task<GetBucketResponse>` | Get bucket Payloadrmation |
 | `GetExtractionStatusAsync()` | `Task<GetStatusOfZipExtractResponse>` | Check extraction status |
 | `GetObjectAsync()` | `Task<GetObjectResponse>` | Get object metadata |
 | `GetObjectVersionsAsync()` | `Task<GetAllObjectVersionsResponse>` | List object versions |
@@ -1580,13 +1580,13 @@ await sdk.UploadAsync(
 
 ---
 
-### Metadata & Information
+### Metadata & Payloadrmation
 
 ---
 
 #### `GetObjectAsync`
 
-Retrieves metadata and information about a specific object.
+Retrieves metadata and Payloadrmation about a specific object.
 
 **Parameters:**
 
@@ -1728,7 +1728,7 @@ var result = await sdk.ExistsBucketAsync();
 
 #### `GetBucketAsync`
 
-Retrieves bucket information and metadata.
+Retrieves bucket Payloadrmation and metadata.
 
 **Parameters:**
 
@@ -1898,7 +1898,7 @@ These operations have been thoroughly tested and are ready for production use:
 | `ExistsBucketAsync()` | Check bucket existence |
 | `ExistsObjectAsync()` | Check object existence |
 | `ExtractZipObjectAsync()` | Extract ZIP file in cloud |
-| `GetBucketAsync()` | Get bucket information |
+| `GetBucketAsync()` | Get bucket Payloadrmation |
 | `GetExtractionStatusAsync()` | Check extraction status |
 | `GetPresignedURLAsync()` | Generate presigned URLs (upload and download) |
 | `ListAllBucketsAsync()` | List all buckets |
@@ -2038,7 +2038,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - Added `DeleteObjectsAsync` overloads for batch deletion (with `List<DeleteObjectRequestData>` or `List<string>`)
 - `GetExtractionStatusAsync` now accepts `taskId` instead of `objectKey`
 - `ListAllObjectsAsync` parameters are now all optional with defaults
-- Added `CreateBucketSignatureResponse` and `CreateBucketSignatureData` response models to documentation
+- Added `CreateBucketSignatureResponse` and `CreateBucketSignatureData` response s to documentation
 - Promoted upload, delete, extract, and bucket signature operations from Experimental to Stable
 
 ### Version 1.1.0

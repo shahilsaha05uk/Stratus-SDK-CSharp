@@ -1,4 +1,3 @@
-
 namespace StratusSDK
 {
     public sealed class TokenManager(ITokenEndpointClient tokenEndpointClient) : ITokenManager
@@ -25,6 +24,7 @@ namespace StratusSDK
 
             return DateTime.UtcNow < expiryTime - buffer;
         }
+
         static Token MakeTokenData(TokenResponse response)
             => new(response.AccessToken, response.ExpiresIn, response.Scope);
     }

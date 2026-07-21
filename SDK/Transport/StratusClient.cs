@@ -13,6 +13,7 @@ namespace StratusSDK
         {
             var message = CreateMessage(request);
             var response = await http.SendAsync(message, completionOption, ct);
+
             return new()
             {
                 ClientRequest = request,
@@ -21,7 +22,7 @@ namespace StratusSDK
             };
         }
 
-        private static HttpRequestMessage CreateMessage(StratusRequest request)
+        static HttpRequestMessage CreateMessage(StratusRequest request)
         {
             var uri = UriBuilder.Build(request);
             var message = new HttpRequestMessage(request.Method, uri);
@@ -31,7 +32,7 @@ namespace StratusSDK
             return message;
         }
 
-        private static void AddContent(
+        static void AddContent(
             ref HttpRequestMessage message,
             IStratusHttpContent? content,
             Dictionary<string, string?>? headers)
@@ -45,14 +46,14 @@ namespace StratusSDK
             message.Content = httpContent;
         }
 
-        private static void ToggleOptions(ref HttpRequestMessage message, StratusRequest request)
+        static void ToggleOptions(ref HttpRequestMessage message, StratusRequest request)
         {
             Toggler(ref message, StratusRequestOptions.RequireAuth, request.RequireAuth);
             Toggler(ref message, StratusRequestOptions.IncludeOrgId, request.IncludeOrg);
             Toggler(ref message, StratusRequestOptions.IncludeEnvironment, request.IncludeEnvironment);
         }
 
-        private static void AddCustomHeaders(ref HttpRequestMessage message, Dictionary<string, string>? headers)
+        static void AddCustomHeaders(ref HttpRequestMessage message, Dictionary<string, string>? headers)
         {
             if (headers == null) return;
 
@@ -69,7 +70,7 @@ namespace StratusSDK
             }
         }
 
-        private static void TryAddContentHeaders(
+        static void TryAddContentHeaders(
             ref HttpContent content,
             Dictionary<string, string?>? headers)
         {
@@ -82,12 +83,13 @@ namespace StratusSDK
                 var contentType = ct is not null && !string.IsNullOrEmpty(ct)
                     ? ct
                     : EContentType.TextPlain.ToMimeString();
+
                 content.Headers.ContentType =
                     new MediaTypeHeaderValue(contentType);
             }
         }
 
-        private static void Toggler(
+        static void Toggler(
             ref HttpRequestMessage message,
             HttpRequestOptionsKey<bool> option,
             bool value)

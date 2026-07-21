@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace StratusSDK
 {
+
     public static class UriBuilder
     {
         public static Uri Build(StratusRequest request)
         {
             var pathTemplate = request.PathTemplate;
             var template = new UriTemplate(pathTemplate);
+
             var resolved = template
                 .AddParameters(request.PathParameters ?? [])
                 .Resolve()

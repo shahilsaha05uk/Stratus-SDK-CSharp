@@ -35,7 +35,7 @@ namespace StratusSDK
             return true;
         }
 
-        private static ProblemDetails CreateProblemDetails(
+        static ProblemDetails CreateProblemDetails(
             HttpContext context,
             StratusException ex)
         {
@@ -56,7 +56,7 @@ namespace StratusSDK
             return problem;
         }
 
-        private static void AddIfNotNull(
+        static void AddIfNotNull(
             ProblemDetails problem,
             string key,
             object? value)

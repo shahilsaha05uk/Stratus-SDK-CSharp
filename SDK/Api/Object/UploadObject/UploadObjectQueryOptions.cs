@@ -1,6 +1,8 @@
+using StratusSDK;
+using StratusSDK.Api.Object.UploadObject.Models;
+using StratusSDK.Core.Constants.Keys;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.Object.UploadObject
 {
     public sealed class UploadObjectQueryOptions : QueryProviderBase<UploadObjectRequest>
     {

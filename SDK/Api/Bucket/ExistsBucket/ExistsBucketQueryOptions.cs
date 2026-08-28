@@ -1,4 +1,9 @@
-namespace StratusSDK
+using StratusSDK;
+using StratusSDK.Config;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Infrastructure.Http.QueryProvider;
+
+namespace StratusSDK.Api.Bucket.ExistsBucket
 {
     public sealed class ExistsBucketQueryOptions(StratusOptions options) : QueryProviderBase
     {

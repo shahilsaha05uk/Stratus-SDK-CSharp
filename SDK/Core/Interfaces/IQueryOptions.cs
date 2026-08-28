@@ -1,4 +1,6 @@
-namespace StratusSDK
+using StratusSDK;
+
+namespace StratusSDK.Core.Interfaces
 {
     public interface IQueryOptions<T>
     {

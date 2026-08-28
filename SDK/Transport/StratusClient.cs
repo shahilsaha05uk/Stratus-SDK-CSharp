@@ -1,6 +1,12 @@
 using System.Net.Http.Headers;
+using StratusSDK.Config;
+using StratusSDK.Core.Constants;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Core.Enums;
+using StratusSDK.Core.Interfaces;
+using UriBuilder = StratusSDK.Core.UriBuilder;
 
-namespace StratusSDK
+namespace StratusSDK.Transport
 {
     public sealed class StratusClient(HttpClient http, StratusOptions options)
     {

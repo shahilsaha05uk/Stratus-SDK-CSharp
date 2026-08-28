@@ -1,6 +1,8 @@
 using System.Text.Json;
+using StratusSDK.Core;
+using StratusSDK;
 
-namespace StratusSDK
+namespace StratusSDK.Core
 {
     public static class JsonUtil
     {

@@ -1,5 +1,6 @@
+using StratusSDK;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.UploadObject.Models
 {
     public sealed class UploadObjectResponse
     {

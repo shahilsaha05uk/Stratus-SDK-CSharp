@@ -1,7 +1,10 @@
 using System.Globalization;
 using System.Text.Json.Serialization;
+using StratusSDK;
+using StratusSDK.Api.Bucket.GetBuckets.Models;
+using StratusSDK.Core.Constants.Keys;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Bucket.GetBuckets.Models
 {
     public abstract class BucketBase
     {

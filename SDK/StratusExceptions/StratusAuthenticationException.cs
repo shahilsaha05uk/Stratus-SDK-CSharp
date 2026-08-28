@@ -1,4 +1,6 @@
-﻿namespace StratusSDK
+﻿using StratusSDK;
+
+namespace StratusSDK.StratusExceptions
 {
     /// <summary>
     /// Exception thrown when authentication with Zoho OAuth fails.

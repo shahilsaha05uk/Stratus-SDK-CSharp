@@ -1,4 +1,7 @@
-namespace StratusSDK
+using StratusSDK;
+using StratusSDK.Api.Object.PutObjectMetadata.Models;
+
+namespace StratusSDK.Api.Object.PutObjectMetadata.Models
 {
     public sealed class PutObjectMetadataRequest
     {

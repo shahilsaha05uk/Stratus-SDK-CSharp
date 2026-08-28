@@ -1,4 +1,7 @@
-namespace StratusSDK
+using StratusSDK.Transport;
+using StratusSDK;
+
+namespace StratusSDK.Transport
 {
     public class StratusClientResponse
     {

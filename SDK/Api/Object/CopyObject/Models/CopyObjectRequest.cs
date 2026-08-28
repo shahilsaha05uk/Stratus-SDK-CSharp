@@ -1,4 +1,6 @@
-namespace StratusSDK
+using StratusSDK;
+
+namespace StratusSDK.Api.Object.CopyObject.Models
 {
     /// <summary>
     /// Represents a request to copy an object within the Stratus bucket.

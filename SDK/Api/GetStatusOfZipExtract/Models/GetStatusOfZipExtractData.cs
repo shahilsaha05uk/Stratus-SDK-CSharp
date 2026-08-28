@@ -1,6 +1,8 @@
 using System.Text.Json.Serialization;
+using StratusSDK;
+using StratusSDK.Core.Enums;
 
-namespace StratusSDK
+namespace StratusSDK.Api.GetStatusOfZipExtract.Models
 {
     public sealed class GetStatusOfZipExtractData
     {

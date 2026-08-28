@@ -1,9 +1,10 @@
 ﻿using Corvus.UriTemplates.TavisApi;
 using Microsoft.AspNetCore.WebUtilities;
+using StratusSDK;
+using StratusSDK.Transport;
 
-namespace StratusSDK
+namespace StratusSDK.Core
 {
-
     public static class UriBuilder
     {
         public static Uri Build(StratusRequest request)

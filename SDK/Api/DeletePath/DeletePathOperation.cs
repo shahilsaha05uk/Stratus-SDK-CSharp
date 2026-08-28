@@ -1,6 +1,11 @@
 using Microsoft.Extensions.Options;
+using StratusSDK;
+using StratusSDK.Api.DeletePath;
+using StratusSDK.Api.DeletePath.Models;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Transport;
 
-namespace StratusSDK
+namespace StratusSDK.Api.DeletePath
 {
     public sealed class DeletePathOperation(
         DeletePathQueryOptions queryOptions,

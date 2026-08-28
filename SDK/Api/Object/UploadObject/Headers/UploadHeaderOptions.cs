@@ -1,4 +1,11 @@
-namespace StratusSDK
+using StratusSDK;
+using StratusSDK.Api.Object.UploadObject.Models;
+using StratusSDK.Core.Constants;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Core.Enums;
+using StratusSDK.Infrastructure.Http.HeaderProvider;
+
+namespace StratusSDK.Api.Object.UploadObject.Headers
 {
     /// <summary>
     /// Configures HTTP headers and options for object upload operations.

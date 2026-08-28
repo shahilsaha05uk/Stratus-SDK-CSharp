@@ -1,5 +1,10 @@
 
-namespace StratusSDK
+using StratusSDK.Config;
+using StratusSDK.Core.Interfaces;
+using StratusSDK;
+using StratusSDK.Resolvers;
+
+namespace StratusSDK.Factories
 {
     /// <summary>
     /// Factory class for creating instances of the Stratus SDK.

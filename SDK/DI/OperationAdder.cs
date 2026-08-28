@@ -1,6 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
+using StratusSDK.Core.Operation;
+using StratusSDK;
 
-namespace StratusSDK
+namespace StratusSDK.DI
 {
     public static class OperationAdder
     {

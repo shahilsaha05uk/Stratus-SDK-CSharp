@@ -1,6 +1,9 @@
 ﻿using System.Net;
+using StratusSDK.Core.Interfaces;
+using StratusSDK.Transport;
+using StratusSDK.StratusExceptions;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.UploadObject.Models
 {
     internal class UploadResponseStrategy : IResponseStrategy<UploadObjectResponse>
     {

@@ -1,4 +1,6 @@
-namespace StratusSDK
+using StratusSDK;
+
+namespace StratusSDK.Core.Enums
 {
     /// <summary>
     /// Represents the geographical regions where Zoho Catalyst Stratus services are available.

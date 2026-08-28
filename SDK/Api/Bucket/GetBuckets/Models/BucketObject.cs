@@ -1,7 +1,10 @@
 using System.Globalization;
 using System.Text.Json.Serialization;
+using StratusSDK;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Core.Enums;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Bucket.GetBuckets.Models
 {
     public sealed class BucketObject
     {

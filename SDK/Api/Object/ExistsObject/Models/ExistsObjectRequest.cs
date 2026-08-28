@@ -1,4 +1,6 @@
-namespace StratusSDK
+using StratusSDK;
+
+namespace StratusSDK.Api.Object.ExistsObject.Models
 {
     /// <summary>
     /// Represents a request to check if an object exists in the Stratus bucket.

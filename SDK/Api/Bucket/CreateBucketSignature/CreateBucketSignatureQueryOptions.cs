@@ -1,6 +1,9 @@
+using StratusSDK;
+using StratusSDK.Config;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Infrastructure.Http.QueryProvider;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.Bucket.CreateBucketSignature
 {
     public sealed class CreateBucketSignatureQueryOptions(StratusOptions options) :
         QueryProviderBase

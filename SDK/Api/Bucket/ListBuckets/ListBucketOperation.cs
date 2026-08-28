@@ -1,6 +1,9 @@
+using StratusSDK;
+using StratusSDK.Api.Bucket.ListBuckets.Models;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Transport;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.Bucket.ListBuckets
 {
     public sealed class ListBucketOperation(
         StratusClient client) :

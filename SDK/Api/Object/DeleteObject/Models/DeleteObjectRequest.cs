@@ -1,6 +1,9 @@
 using System.Text.Json.Serialization;
+using StratusSDK;
+using StratusSDK.Api.Object.DeleteObject.Models;
+using StratusSDK.Core.Constants.Keys;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.DeleteObject.Models
 {
     /// <summary>
     /// Represents a request to delete one or more objects from the Stratus bucket.

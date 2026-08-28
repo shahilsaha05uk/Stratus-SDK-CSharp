@@ -1,4 +1,5 @@
-namespace StratusSDK
+
+namespace StratusSDK.Api.Bucket.ExistsBucket.Models
 {
     public sealed class ExistsBucketResponse
     {

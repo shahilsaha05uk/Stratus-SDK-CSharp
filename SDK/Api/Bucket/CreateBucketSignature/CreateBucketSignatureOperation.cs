@@ -1,6 +1,10 @@
+using StratusSDK;
+using StratusSDK.Api.Bucket.CreateBucketSignature;
+using StratusSDK.Api.Bucket.CreateBucketSignature.Models;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Transport;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.Bucket.CreateBucketSignature
 {
     public sealed class CreateBucketSignatureOperation(
         StratusClient client,

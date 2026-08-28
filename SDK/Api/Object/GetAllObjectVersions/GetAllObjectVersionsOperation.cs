@@ -1,5 +1,10 @@
+using StratusSDK;
+using StratusSDK.Api.Object.GetAllObjectVersions;
+using StratusSDK.Api.Object.GetAllObjectVersions.Models;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Transport;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.GetAllObjectVersions
 {
     public sealed class GetAllObjectVersionsOperation(
         GetAllObjectVersionsQueryOptions queryOptions,

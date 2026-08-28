@@ -1,4 +1,6 @@
-namespace StratusSDK
+using StratusSDK;
+
+namespace StratusSDK.Api.PresignedUrl.Models
 {
     public sealed class PresignedUrlOptions
     {

@@ -1,4 +1,6 @@
-namespace StratusSDK
+using StratusSDK;
+
+namespace StratusSDK.Core.Constants.Keys
 {
     internal static class JsonKeys
     {

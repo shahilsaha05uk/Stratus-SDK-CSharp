@@ -1,6 +1,10 @@
 using System.Text.Json.Serialization;
+using StratusSDK;
+using StratusSDK.Api.Object.ExtractZipObject.Models;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Transport;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.ExtractZipObject.Models
 {
     public sealed class ExtractZipObjectResponse : BaseResponse
     {

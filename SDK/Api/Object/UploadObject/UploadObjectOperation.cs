@@ -1,5 +1,11 @@
+using StratusSDK;
+using StratusSDK.Api.Object.UploadObject;
+using StratusSDK.Api.Object.UploadObject.Models;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Core.Interfaces;
+using StratusSDK.Transport;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.UploadObject
 {
     public sealed class UploadObjectOperation(
         UploadObjectQueryOptions queryOptions,

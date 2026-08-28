@@ -1,6 +1,7 @@
 using System.Net.Mime;
+using StratusSDK;
 
-namespace StratusSDK
+namespace StratusSDK.Core.Interfaces
 {
     public interface IStratusHttpContent
     {

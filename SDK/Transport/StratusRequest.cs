@@ -1,5 +1,8 @@
 
-namespace StratusSDK
+using StratusSDK.Core.Interfaces;
+using StratusSDK;
+
+namespace StratusSDK.Transport
 {
     public sealed class StratusRequest
     {

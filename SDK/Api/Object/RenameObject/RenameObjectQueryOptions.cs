@@ -1,6 +1,8 @@
+using StratusSDK.Api.Object.RenameObject.Models;
+using StratusSDK.Config;
+using StratusSDK.Core.Constants.Keys;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.Object.RenameObject
 {
     public sealed class RenameObjectQueryOptions(StratusOptions options) : QueryProviderBase<RenameObjectRequest>
     {

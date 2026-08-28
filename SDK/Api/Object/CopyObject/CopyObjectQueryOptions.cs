@@ -1,6 +1,9 @@
+using StratusSDK;
+using StratusSDK.Api.Object.CopyObject.Models;
+using StratusSDK.Config;
+using StratusSDK.Core.Constants.Keys;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.Object.CopyObject
 {
     public sealed class CopyObjectQueryOptions(StratusOptions options) : QueryProviderBase<CopyObjectRequest>
     {

@@ -1,6 +1,9 @@
+using StratusSDK;
+using StratusSDK.Config;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Infrastructure.Http.QueryProvider;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.Object.DeleteObject
 {
     public sealed class DeleteObjectQueryOptions(StratusOptions options) : QueryProviderBase
     {

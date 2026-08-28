@@ -1,6 +1,8 @@
 using System.Text.Json.Serialization;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK;
 
-namespace StratusSDK
+namespace StratusSDK.Transport
 {
     public abstract class BaseResponse
     {

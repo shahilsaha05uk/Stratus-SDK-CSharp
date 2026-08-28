@@ -1,4 +1,7 @@
-namespace StratusSDK
+using StratusSDK.StratusExceptions;
+using StratusSDK.Transport;
+
+namespace StratusSDK.Core.Interfaces
 {
     public interface IResponseStrategy<TResponse>
     {

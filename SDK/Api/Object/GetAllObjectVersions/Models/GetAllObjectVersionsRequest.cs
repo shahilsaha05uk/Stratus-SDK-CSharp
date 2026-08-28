@@ -1,4 +1,6 @@
-namespace StratusSDK
+using StratusSDK;
+
+namespace StratusSDK.Api.Object.GetAllObjectVersions.Models
 {
     public sealed class GetAllObjectVersionsRequest
     {

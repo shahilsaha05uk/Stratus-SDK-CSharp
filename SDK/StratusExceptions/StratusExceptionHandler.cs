@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using StratusSDK;
+using StratusSDK.StratusExceptions;
 
-namespace StratusSDK
+namespace StratusSDK.StratusExceptions
 {
     public sealed class StratusExceptionHandler(
         ILogger<StratusExceptionHandler> logger)

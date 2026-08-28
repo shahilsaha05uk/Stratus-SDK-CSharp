@@ -1,5 +1,7 @@
+using StratusSDK;
+using StratusSDK.Core.Enums;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.DownloadObject.Models
 {
     public sealed class DownloadOverridingQueryOptions
     {

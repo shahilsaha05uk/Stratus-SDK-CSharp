@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
+using StratusSDK;
 
-namespace StratusSDK
+namespace StratusSDK.Core.Enums
 {
     /// <summary>
     /// Represents the caching status of a bucket.

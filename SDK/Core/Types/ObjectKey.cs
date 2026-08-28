@@ -1,4 +1,7 @@
-namespace StratusSDK
+using StratusSDK.Core.Types;
+using StratusSDK;
+
+namespace StratusSDK.Core.Types
 {
     public readonly record struct ObjectKey
     {

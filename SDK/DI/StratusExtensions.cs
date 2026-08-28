@@ -1,7 +1,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using StratusSDK.Config;
+using StratusSDK.Core.Interfaces;
+using StratusSDK.DI;
+using StratusSDK;
+using StratusSDK.Infrastructure.Http;
+using StratusSDK.Infrastructure.TokenManager;
+using StratusSDK.Transport;
 
-namespace StratusSDK
+namespace StratusSDK.DI
 {
     public static class StratusExtensions
     {

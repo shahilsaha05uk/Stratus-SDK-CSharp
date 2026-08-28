@@ -1,5 +1,9 @@
 
-namespace StratusSDK
+using StratusSDK.Core.Interfaces;
+using StratusSDK.Infrastructure.Http;
+using StratusSDK;
+
+namespace StratusSDK.Infrastructure.Http.HeaderProvider
 {
     public abstract class HeaderProviderBase : BaseHttpProvider, IHeaderProvider
     {

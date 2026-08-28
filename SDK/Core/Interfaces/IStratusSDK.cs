@@ -1,4 +1,26 @@
-namespace StratusSDK
+using StratusSDK.Api.Bucket.CreateBucketSignature.Models;
+using StratusSDK.Api.Bucket.GetBuckets.Models;
+using StratusSDK.Api.Bucket.ListBuckets.Models;
+using StratusSDK.Api.DeletePath.Models;
+using StratusSDK.Api.GetStatusOfZipExtract.Models;
+using StratusSDK.Api.Object.CopyObject.Models;
+using StratusSDK.Api.Object.DeleteObject.Models;
+using StratusSDK.Api.Object.DownloadObject.Models;
+using StratusSDK.Api.Object.ExistsObject.Models;
+using StratusSDK.Api.Object.ExtractZipObject.Models;
+using StratusSDK.Api.Object.GetAllObjectVersions.Models;
+using StratusSDK.Api.Object.GetObject.Models;
+using StratusSDK.Api.Object.ListAllObjects.Models;
+using StratusSDK.Api.Object.PutObjectMetadata.Models;
+using StratusSDK.Api.Object.RenameObject.Models;
+using StratusSDK.Api.Object.UploadObject.Models;
+using StratusSDK.Api.PresignedUrl.Models;
+using StratusSDK.Core.Enums;
+using StratusSDK.Core.Interfaces;
+using StratusSDK;
+using StratusSDK.Api.Bucket.ExistsBucket.Models;
+
+namespace StratusSDK.Core.Interfaces
 {
     public interface IStratusSDK
     {

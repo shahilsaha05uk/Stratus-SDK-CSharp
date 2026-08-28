@@ -1,4 +1,9 @@
-namespace StratusSDK
+using StratusSDK;
+using StratusSDK.Api.Object.DownloadObject.Models;
+using StratusSDK.Core.Constants;
+using StratusSDK.Core.Constants.Keys;
+
+namespace StratusSDK.Api.Object.DownloadObject
 {
     public sealed class DownloadObjectQueryOptions : QueryProviderBase<DownloadObjectRequest>
     {

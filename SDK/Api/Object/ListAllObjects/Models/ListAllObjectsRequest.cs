@@ -1,4 +1,6 @@
-namespace StratusSDK
+using StratusSDK;
+
+namespace StratusSDK.Api.Object.ListAllObjects.Models
 {
     public sealed class ListAllObjectsRequest
     {

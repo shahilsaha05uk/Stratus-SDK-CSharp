@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
+using StratusSDK;
 
-namespace StratusSDK
+namespace StratusSDK.DI
 {
     public static class QueryOptionsAdder
     {

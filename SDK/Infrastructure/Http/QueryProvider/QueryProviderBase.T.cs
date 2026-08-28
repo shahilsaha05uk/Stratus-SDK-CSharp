@@ -1,3 +1,6 @@
+using StratusSDK.Core.Interfaces;
+using StratusSDK.Infrastructure.Http;
+
 namespace StratusSDK
 {
     public abstract class QueryProviderBase<T> : BaseHttpProvider, IQueryProvider<T>

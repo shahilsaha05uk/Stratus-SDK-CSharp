@@ -1,6 +1,8 @@
+using StratusSDK;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Infrastructure.Http.HeaderProvider;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.Object.DownloadObject.Headers
 {
     public sealed class DownloadHeaderOptions : HeaderProviderBase
     {

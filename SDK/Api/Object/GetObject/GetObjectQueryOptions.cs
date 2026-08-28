@@ -1,6 +1,9 @@
+using StratusSDK;
+using StratusSDK.Api.Object.GetObject.Models;
+using StratusSDK.Config;
+using StratusSDK.Core.Constants.Keys;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.Object.GetObject
 {
     public sealed class GetObjectQueryOptions(StratusOptions options) : QueryProviderBase<GetObjectRequest>
     {

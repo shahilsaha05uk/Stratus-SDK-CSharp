@@ -1,7 +1,13 @@
 using Microsoft.Extensions.Options;
 using System.Net;
+using StratusSDK.Config;
+using StratusSDK.Core;
+using StratusSDK.Core.Interfaces;
+using StratusSDK;
+using StratusSDK.Transport;
+using StratusSDK.StratusExceptions;
 
-namespace StratusSDK
+namespace StratusSDK.Core.Operation
 {
     public abstract class BaseOperation(StratusClient client)
     {

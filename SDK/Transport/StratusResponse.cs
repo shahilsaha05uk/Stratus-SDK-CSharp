@@ -1,4 +1,6 @@
-namespace StratusSDK
+using StratusSDK;
+
+namespace StratusSDK.Transport
 {
     public sealed class StratusResponse<T>
     {

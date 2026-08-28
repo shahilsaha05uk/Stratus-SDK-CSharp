@@ -1,6 +1,8 @@
+using StratusSDK;
+using StratusSDK.Config;
+using StratusSDK.Core.Constants.Keys;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.DeletePath
 {
     public sealed class DeletePathQueryOptions(StratusOptions options) : QueryProviderBase<string>
     {

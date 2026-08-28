@@ -1,6 +1,9 @@
+using StratusSDK;
+using StratusSDK.Api.PresignedUrl.Models;
+using StratusSDK.Config;
+using StratusSDK.Core.Constants.Keys;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.PresignedUrl
 {
     public sealed class PresignedUrlQueryOptions(StratusOptions options) : QueryProviderBase<PresignedUrlRequest>
     {

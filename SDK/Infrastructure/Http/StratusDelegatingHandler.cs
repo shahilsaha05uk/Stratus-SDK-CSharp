@@ -1,7 +1,11 @@
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
+using StratusSDK.Config;
+using StratusSDK.Core.Interfaces;
+using StratusSDK;
+using StratusSDK.Transport;
 
-namespace StratusSDK
+namespace StratusSDK.Infrastructure.Http
 {
     /// <summary>
     /// This class will handle adding all the headers 

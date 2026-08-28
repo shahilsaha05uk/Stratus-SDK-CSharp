@@ -1,4 +1,6 @@
-namespace StratusSDK
+using StratusSDK;
+
+namespace StratusSDK.Core.Enums
 {
     /// <summary>
     /// Represents supported MIME content types for object uploads.

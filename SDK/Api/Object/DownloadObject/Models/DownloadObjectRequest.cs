@@ -1,5 +1,9 @@
 
-namespace StratusSDK
+using StratusSDK.Api.Object.DownloadObject.Headers;
+using StratusSDK;
+using StratusSDK.Api.Object.DownloadObject.Models;
+
+namespace StratusSDK.Api.Object.DownloadObject.Models
 {
     /// <summary>
     /// Represents a request to download an object from the Stratus bucket.

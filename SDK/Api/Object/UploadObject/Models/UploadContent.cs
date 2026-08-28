@@ -1,6 +1,10 @@
 using System.Text;
+using StratusSDK;
+using StratusSDK.ContentTypes;
+using StratusSDK.Core.Enums;
+using StratusSDK.Core.Interfaces;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.UploadObject.Models
 {
     public static class UploadContent
     {

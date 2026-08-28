@@ -1,6 +1,9 @@
+using StratusSDK;
+using StratusSDK.Config;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Infrastructure.Http.QueryProvider;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.Bucket.GetBuckets
 {
     public sealed class GetBucketQueryOptions(StratusOptions options) : QueryProviderBase
     {

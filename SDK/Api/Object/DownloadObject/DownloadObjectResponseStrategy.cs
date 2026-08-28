@@ -1,6 +1,11 @@
 using System.Net;
+using StratusSDK;
+using StratusSDK.Api.Object.DownloadObject.Models;
+using StratusSDK.Core.Interfaces;
+using StratusSDK.Transport;
+using StratusSDK.StratusExceptions;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.DownloadObject
 {
     public sealed class DownloadObjectResponseStrategy : IResponseStrategy<DownloadObjectResponse>
     {

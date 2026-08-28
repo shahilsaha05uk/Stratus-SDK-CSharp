@@ -1,4 +1,8 @@
-namespace StratusSDK
+using StratusSDK.Core.Interfaces;
+using StratusSDK.Infrastructure.TokenManager;
+using StratusSDK;
+
+namespace StratusSDK.Infrastructure.TokenManager
 {
     public sealed class TokenManager(ITokenEndpointClient tokenEndpointClient) : ITokenManager
     {

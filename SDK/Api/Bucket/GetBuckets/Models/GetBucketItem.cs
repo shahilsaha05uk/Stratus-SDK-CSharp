@@ -1,6 +1,9 @@
 using System.Text.Json.Serialization;
+using StratusSDK.Api.Bucket.GetBuckets.Models;
+using StratusSDK;
+using StratusSDK.Core.Constants.Keys;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Bucket.GetBuckets.Models
 {
     public sealed class GetBucketItem : BucketBase
     {

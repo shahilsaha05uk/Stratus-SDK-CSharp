@@ -1,6 +1,27 @@
 using Microsoft.Extensions.DependencyInjection;
+using StratusSDK.Api.Bucket.CreateBucketSignature;
+using StratusSDK.Api.Bucket.ExistsBucket;
+using StratusSDK.Api.Bucket.GetBuckets;
+using StratusSDK.Api.Bucket.ListBuckets;
+using StratusSDK.Api.DeletePath;
+using StratusSDK.Api.GetStatusOfZipExtract;
+using StratusSDK.Api.Object.CopyObject;
+using StratusSDK.Api.Object.DeleteObject;
+using StratusSDK.Api.Object.DownloadObject;
+using StratusSDK.Api.Object.ExistsObject;
+using StratusSDK.Api.Object.ExtractZipObject;
+using StratusSDK.Api.Object.GetAllObjectVersions;
+using StratusSDK.Api.Object.GetObject;
+using StratusSDK.Api.Object.ListAllObjects;
+using StratusSDK.Api.Object.PutObjectMetadata;
+using StratusSDK.Api.Object.RenameObject;
+using StratusSDK.Api.Object.UploadObject;
+using StratusSDK.Api.PresignedUrl;
+using StratusSDK;
+using StratusSDK.DI;
+using StratusSDK.Resolvers;
 
-namespace StratusSDK
+namespace StratusSDK.DI
 {
     public static class AllOperationExtension
     {

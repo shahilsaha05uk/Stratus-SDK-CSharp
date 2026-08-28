@@ -1,5 +1,9 @@
+using StratusSDK;
+using StratusSDK.Api.Object.PutObjectMetadata.Models;
+using StratusSDK.Config;
+using StratusSDK.Core.Constants.Keys;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.PutObjectMetadata
 {
     public sealed class PutObjectMetadataQueryOptions(StratusOptions options) : QueryProviderBase<PutObjectMetadataRequest>
     {

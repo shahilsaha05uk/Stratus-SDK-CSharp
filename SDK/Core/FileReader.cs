@@ -1,6 +1,7 @@
 using System.Text;
+using StratusSDK;
 
-namespace StratusSDK
+namespace StratusSDK.Core
 {
     public static class FileReader
     {

@@ -1,6 +1,8 @@
 using System.Text.Json.Serialization;
+using StratusSDK;
+using StratusSDK.Core.Constants.Keys;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.GetObject.Models
 {
     public class GetObjectResponseData
     {

@@ -1,4 +1,7 @@
-namespace StratusSDK
+using StratusSDK.Api.Object.UploadObject.Headers;
+using StratusSDK;
+
+namespace StratusSDK.Api.Object.UploadObject.Models
 {
     public abstract class BaseUploadObjectRequest
     {

@@ -1,4 +1,6 @@
-namespace StratusSDK
+using StratusSDK;
+
+namespace StratusSDK.Core.Enums
 {
     /// <summary>
     /// Specifies the type of presigned URL to generate.

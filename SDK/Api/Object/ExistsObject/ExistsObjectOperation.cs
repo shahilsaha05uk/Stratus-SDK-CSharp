@@ -1,5 +1,11 @@
+using StratusSDK;
+using StratusSDK.Api.Object.ExistsObject;
+using StratusSDK.Api.Object.ExistsObject.Models;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Core.Interfaces;
+using StratusSDK.Transport;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.ExistsObject
 {
     public sealed class ExistsObjectOperation(
         ExistsObjectQueryOptions queryOptions,

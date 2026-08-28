@@ -1,5 +1,11 @@
+using StratusSDK;
+using StratusSDK.Api.Object.DownloadObject;
+using StratusSDK.Api.Object.DownloadObject.Models;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Core.Interfaces;
+using StratusSDK.Transport;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.DownloadObject
 {
     public sealed class DownloadObjectOperation(
         StratusClient client,

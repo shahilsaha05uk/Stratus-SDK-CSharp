@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
 using System.Net;
+using StratusSDK.Core;
+using StratusSDK;
+using StratusSDK.Transport;
+using StratusSDK.StratusExceptions;
 
-namespace StratusSDK
+namespace StratusSDK.StratusExceptions
 {
     public static class StratusExceptionFactory
     {

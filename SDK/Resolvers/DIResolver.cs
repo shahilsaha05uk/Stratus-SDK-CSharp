@@ -1,6 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
+using StratusSDK;
+using StratusSDK.Resolvers;
 
-namespace StratusSDK
+namespace StratusSDK.Resolvers
 {
     public sealed class DIResolver(IServiceProvider provider) : OperationResolver
     {

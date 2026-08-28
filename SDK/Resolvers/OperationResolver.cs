@@ -1,5 +1,8 @@
 
-namespace StratusSDK
+using StratusSDK.Core.Operation;
+using StratusSDK;
+
+namespace StratusSDK.Resolvers
 {
     public abstract class OperationResolver
     {

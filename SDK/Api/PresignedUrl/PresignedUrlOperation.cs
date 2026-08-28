@@ -1,5 +1,11 @@
+using StratusSDK;
+using StratusSDK.Api.PresignedUrl;
+using StratusSDK.Api.PresignedUrl.Models;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Core.Enums;
+using StratusSDK.Transport;
 
-namespace StratusSDK
+namespace StratusSDK.Api.PresignedUrl
 {
     public sealed class PresignedUrlOperation(
         StratusClient client,

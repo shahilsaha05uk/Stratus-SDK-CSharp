@@ -1,4 +1,7 @@
-namespace StratusSDK
+using StratusSDK;
+using StratusSDK.Infrastructure.TokenManager;
+
+namespace StratusSDK.Core.Interfaces
 {
     public interface ITokenManager
     {

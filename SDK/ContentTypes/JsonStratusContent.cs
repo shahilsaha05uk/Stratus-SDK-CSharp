@@ -1,7 +1,9 @@
 using System.Text;
 using System.Text.Json;
+using StratusSDK;
+using StratusSDK.Core.Interfaces;
 
-namespace StratusSDK
+namespace StratusSDK.ContentTypes
 {
     public sealed class JsonStratusContent<T> : IStratusHttpContent
     {

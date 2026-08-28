@@ -1,4 +1,6 @@
-﻿namespace StratusSDK
+﻿using StratusSDK;
+
+namespace StratusSDK.Infrastructure.TokenManager
 {
     public sealed class Token(string accessToken, int expiresIn, string scope)
     {

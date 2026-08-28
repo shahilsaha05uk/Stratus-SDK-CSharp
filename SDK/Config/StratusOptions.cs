@@ -1,7 +1,10 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using StratusSDK;
+using StratusSDK.Core.Constants;
+using StratusSDK.Core.Enums;
 
-namespace StratusSDK
+namespace StratusSDK.Config
 {
     /// <summary>
     /// Configuration options for initializing the Stratus SDK.

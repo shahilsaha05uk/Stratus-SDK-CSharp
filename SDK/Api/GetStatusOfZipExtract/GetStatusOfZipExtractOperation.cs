@@ -1,6 +1,10 @@
+using StratusSDK;
+using StratusSDK.Api.GetStatusOfZipExtract;
+using StratusSDK.Api.GetStatusOfZipExtract.Models;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Transport;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.GetStatusOfZipExtract
 {
     public sealed class GetStatusOfZipExtractOperation(
         StratusClient client,

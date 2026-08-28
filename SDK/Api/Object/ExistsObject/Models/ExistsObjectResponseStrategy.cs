@@ -1,6 +1,11 @@
 ﻿using System.Net;
+using StratusSDK.Api.Object.ExistsObject.Models;
+using StratusSDK;
+using StratusSDK.Core.Interfaces;
+using StratusSDK.Transport;
+using StratusSDK.StratusExceptions;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.ExistsObject.Models
 {
     internal class ExistsObjectResponseStrategy : IResponseStrategy<ExistsObjectResponse>
     {

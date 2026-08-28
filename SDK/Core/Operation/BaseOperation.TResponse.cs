@@ -1,3 +1,7 @@
+using StratusSDK.Core.Interfaces;
+using StratusSDK.Core.Operation;
+using StratusSDK.Transport;
+
 namespace StratusSDK
 {
     public abstract class BaseOperation<TResponse>(StratusClient client) : BaseOperation(client)

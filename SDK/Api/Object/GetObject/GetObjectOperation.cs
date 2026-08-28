@@ -1,5 +1,10 @@
+using StratusSDK;
+using StratusSDK.Api.Object.GetObject;
+using StratusSDK.Api.Object.GetObject.Models;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Transport;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Object.GetObject
 {
     public sealed class GetObjectOperation(
         StratusClient client,

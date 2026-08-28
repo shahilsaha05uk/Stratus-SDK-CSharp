@@ -1,6 +1,10 @@
+using StratusSDK;
+using StratusSDK.Api.Object.CopyObject;
+using StratusSDK.Api.Object.CopyObject.Models;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Transport;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.Object.CopyObject
 {
     public sealed class CopyObjectOperation(
         StratusClient client,

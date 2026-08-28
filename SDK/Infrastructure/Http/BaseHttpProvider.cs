@@ -1,7 +1,9 @@
 using System.Globalization;
 using System.Net;
+using StratusSDK;
+using StratusSDK.StratusExceptions;
 
-namespace StratusSDK
+namespace StratusSDK.Infrastructure.Http
 {
     public abstract class BaseHttpProvider
     {

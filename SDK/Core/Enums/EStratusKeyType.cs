@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
+using StratusSDK;
 
-namespace StratusSDK
+namespace StratusSDK.Core.Enums
 {
     /// <summary>
     /// Specifies the type of a storage key in Stratus.

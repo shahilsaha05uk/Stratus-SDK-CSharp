@@ -1,4 +1,6 @@
-namespace StratusSDK
+using StratusSDK;
+
+namespace StratusSDK.Api.Object.RenameObject.Models
 {
     /// <summary>
     /// Represents a request to rename an object in the Stratus bucket.

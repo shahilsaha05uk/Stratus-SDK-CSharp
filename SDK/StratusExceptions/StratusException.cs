@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace StratusSDK
+namespace StratusSDK.StratusExceptions
 {
     public sealed class StratusException : Exception
     {

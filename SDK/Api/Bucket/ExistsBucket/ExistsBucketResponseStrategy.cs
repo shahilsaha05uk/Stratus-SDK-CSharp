@@ -1,6 +1,10 @@
 ﻿using System.Net;
+using StratusSDK.Api.Bucket.ExistsBucket.Models;
+using StratusSDK.Core.Interfaces;
+using StratusSDK.Transport;
+using StratusSDK.StratusExceptions;
 
-namespace StratusSDK
+namespace StratusSDK.Api.Bucket.ExistsBucket
 {
     internal sealed class ExistsBucketResponseStrategy : IResponseStrategy<ExistsBucketResponse>
     {

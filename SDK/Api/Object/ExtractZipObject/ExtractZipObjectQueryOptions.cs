@@ -1,6 +1,9 @@
+using StratusSDK;
+using StratusSDK.Api.Object.ExtractZipObject.Models;
+using StratusSDK.Config;
+using StratusSDK.Core.Constants.Keys;
 
-
-namespace StratusSDK
+namespace StratusSDK.Api.Object.ExtractZipObject
 {
     public sealed class ExtractZipObjectQueryOptions(StratusOptions options) : QueryProviderBase<ExtractZipObjectRequest>
     {

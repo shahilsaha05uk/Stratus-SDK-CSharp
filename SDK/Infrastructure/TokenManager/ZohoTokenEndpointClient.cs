@@ -1,6 +1,13 @@
 using System.Text.Json;
+using StratusSDK.Config;
+using StratusSDK.Core.Constants;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Core.Interfaces;
+using StratusSDK.Infrastructure.TokenManager;
+using StratusSDK;
+using StratusSDK.StratusExceptions;
 
-namespace StratusSDK
+namespace StratusSDK.Infrastructure.TokenManager
 {
     public sealed class ZohoTokenEndpointClient(
         HttpClient http,

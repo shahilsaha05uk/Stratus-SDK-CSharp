@@ -1,6 +1,12 @@
 
 
-namespace StratusSDK
+using StratusSDK.Api.Bucket.GetBuckets;
+using StratusSDK;
+using StratusSDK.Api.Bucket.GetBuckets.Models;
+using StratusSDK.Core.Constants.Keys;
+using StratusSDK.Transport;
+
+namespace StratusSDK.Api.Bucket.GetBuckets
 {
     public sealed class GetBucketsOperation(
         StratusClient client,

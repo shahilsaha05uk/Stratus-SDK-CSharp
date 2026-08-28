@@ -1,4 +1,7 @@
-namespace StratusSDK
+using StratusSDK;
+using StratusSDK.Core.Enums;
+
+namespace StratusSDK.Core.Constants
 {
     public static class ContentTypeMapper
     {

@@ -1,4 +1,6 @@
-namespace StratusSDK
+using StratusSDK;
+
+namespace StratusSDK.Api.Object.ExistsObject.Models
 {
     public sealed class ExistsObjectResponse
     {

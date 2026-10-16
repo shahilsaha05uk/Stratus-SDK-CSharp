@@ -11,6 +11,15 @@
 //
 // ============================================================================
 
+using StratusSDK.Api.Object.DownloadObject.Models;
+using StratusSDK.Api.Object.PutObjectMetadata.Models;
+using StratusSDK.Api.Object.UploadObject.Models;
+using StratusSDK.Api.PresignedUrl.Models;
+using StratusSDK.Config;
+using StratusSDK.Core.Enums;
+using StratusSDK.Core.Interfaces;
+using StratusSDK.Factories;
+
 namespace StratusSDK.Samples
 {
     public class StratusNonDISample

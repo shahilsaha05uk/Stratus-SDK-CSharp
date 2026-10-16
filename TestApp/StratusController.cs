@@ -28,9 +28,12 @@
 //
 // ============================================================================
 
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StratusSDK;
+using StratusSDK.Api.Object.DeleteObject.Models;
+using StratusSDK.Api.Object.UploadObject.Models;
+using StratusSDK.Core.Constants;
+using StratusSDK.Core.Enums;
+using StratusSDK.Core.Interfaces;
 
 namespace DIExampleApp
 {

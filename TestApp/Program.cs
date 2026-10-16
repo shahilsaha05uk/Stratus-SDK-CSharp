@@ -1,5 +1,6 @@
 using Scalar.AspNetCore;
-using StratusSDK;
+using StratusSDK.Core.Enums;
+using StratusSDK.DI;
 
 var builder = WebApplication.CreateBuilder(args);
 var env = builder.Environment;
